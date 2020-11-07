@@ -23,11 +23,7 @@ class Player extends GameObject {
          // gravity(dt);
           String o = whichOrientation(this.hitbox, hitbox);
           System.out.println(o);
-          if (o.equals("top")) { 
-            ready_to_jump = true;
-            y = hitbox.getY() - h;
-          }
-          stopPlayer(o, dt);
+          stopPlayer(o, dt, hitbox);
         }
       }
     }
@@ -59,8 +55,8 @@ class Player extends GameObject {
   
   private String whichOrientation(Hitbox box1, Hitbox box2) {
     //player on top
-    if (box1.getY() < box2.getY() && box1.getX() >= box2.getX() 
-    && box1.getX() + box1.getWidth() <= box2.getX() + box2.getWidth()) {
+    if (box1.getY() < box2.getY() && box1.getX() + box1.getWidth() >= box2.getX() 
+    && box1.getX() <= box2.getX() + box2.getWidth()) {
       return "top";
     }
     //player on bottom
@@ -86,22 +82,25 @@ class Player extends GameObject {
     }
   }
   
-  private void stopPlayer(String orientation, float dt) {
+  private void stopPlayer(String orientation, float dt, Hitbox object) {
     if (orientation.equals("top")) {
       accely = 0;
       time = 0;
       jumping = false;
+      ready_to_jump = true;
+      y = object.getY() - h;
       if (isKeyDown('w')) {
         accely = accely_scale;
         jumping = true;
-       // jump(y, dt);
       }
     } if (orientation.equals("left")) {
       xvelo = 0;
+      x = object.getX() - w;
       if (isKeyDown('a')) {
         xvelo = 200;
       }
     } if (orientation.equals("right")) {
+      x = object.getX() + object.getWidth();
       xvelo = 0;
       if (isKeyDown('d')) {
         xvelo = 200;
