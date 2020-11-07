@@ -1,6 +1,8 @@
 class Game {
+  Camera camera;
   Player player;
   Platform platform;
+  Platform platform2;
   Moving_Platform mvPlatform;
   Moving_Platform mvPlatform2;
   Moving_Platform mvPlatform3;
@@ -9,15 +11,19 @@ class Game {
   
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
+    allObjects = new ArrayList<GameObject>();
+    camera = new Camera(this);
     player = new Player(width / 2, height / 2, this); 
-    platform = new Platform(width / 2, height / 1.25, this);
-  //  mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
-  //  mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
+    platform = new Platform(width / 2, height / 1.5, 500.0, 500.0, this);
+    platform2 = new Platform(platform.getX() + platform.getWidth() - 200, height / 2, 100.0, 700.0, this);
+    //mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
+   // mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
    // mvPlatform3 = new Moving_Platform(0, height, 3, this);
     
   }
   
   void update(float dt) {
+    camera.update(dt);
     player.update(dt);
    // mvPlatform.update(dt);
    // mvPlatform2.update(dt);

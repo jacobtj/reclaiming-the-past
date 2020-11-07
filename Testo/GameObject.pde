@@ -16,9 +16,42 @@ class GameObject {
     this.game = game;
     
     this.hitbox = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
+    
+    this.game.addObject(this);
   }
   
   public void update(float dt) {
     hitbox.update(x, y, w, h, colors);
+  }
+  
+  public float getX() {
+    return x;
+  }
+  public void setX(float x) {
+    this.x = x;
+  }
+  public float getY() {
+    return y;
+  }
+  public void setY(float y) {
+    this.y = y;
+  }
+  public float getWidth() {
+    return w;
+  }
+  public void setWidth(float w) {
+    this.w = w;
+  }
+  public float getHeight() {
+    return h;
+  }
+  public void setHeight(float h) {
+    this.h = h;
+  }
+  public int[] getColor() {
+    return colors;
+  }
+  public Hitbox getHitbox() {
+    return hitbox;
   }
 }
