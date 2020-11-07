@@ -4,7 +4,7 @@ class Platform extends GameObject {
   private Game game;
   
   public Platform(float x, float y, Game game) {
-    super(x, y, 80.0, 10.0, new int[] {0, 0, 255}, game);
+    super(x, y, 160.0, 20.0, new int[] {0, 0, 255}, game);
   }
   
   //update the position of the platform over time (but only implemented for moving platform...)

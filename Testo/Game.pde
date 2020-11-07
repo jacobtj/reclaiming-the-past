@@ -10,18 +10,18 @@ class Game {
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
     player = new Player(width / 2, height / 2, this); 
-    platform = new Platform(width / 2, height / 1.5, this);
-    mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
-    mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
-    mvPlatform3 = new Moving_Platform(0, height, 3, this);
+    platform = new Platform(width / 2, height / 1.25, this);
+  //  mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
+  //  mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
+   // mvPlatform3 = new Moving_Platform(0, height, 3, this);
     
   }
   
   void update(float dt) {
     player.update(dt);
-    mvPlatform.update(dt);
-    mvPlatform2.update(dt);
-    mvPlatform3.update(dt);
+   // mvPlatform.update(dt);
+   // mvPlatform2.update(dt);
+  //  mvPlatform3.update(dt);
   }
   
   public void addObject(GameObject object) {
