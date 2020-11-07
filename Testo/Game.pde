@@ -14,7 +14,6 @@ class Game {
     mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
     mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
     mvPlatform3 = new Moving_Platform(0, height, 3, this);
-    
   }
   
   void update(float dt) {
