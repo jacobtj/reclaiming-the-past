@@ -5,19 +5,23 @@ class Hitbox {
   private float h;
   private int[] colors;
   private Game game;
+  private GameObject parent;
   
-  public Hitbox(float x, float y, float w, float h, int[] colors, Game game) {
+  public Hitbox(float x, float y, float w, float h, int[] colors, Game game, GameObject parent) {
     this.game = game;
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.colors = colors;
+    this.parent = parent;
     
     this.game.addHitbox(this);
   }
   
-  
+  public Object getParent() {
+    return parent;
+  }
   
   public double getX() {
     return x;
