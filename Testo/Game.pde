@@ -53,7 +53,7 @@ class Game {
         camera.update(dt);
         player.update(dt);
      // }
-     // mvPlatform.update(dt);
+
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);
     } 
@@ -142,5 +142,13 @@ class Game {
     
     player = new Player(width / 2, height / 2, this);
     camera = new Camera(this);
+  }
+  
+  public void testMovingPlatform() { 
+    camera = new Camera(this);
+    player = new Player(width / 2, height / 2, this); 
+    
+    platform1a = new Platform(width / 4, height / 1.3, 100000, 500, this);
+    mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);
   }
 }
