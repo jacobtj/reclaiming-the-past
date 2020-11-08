@@ -16,10 +16,14 @@ class Player extends GameObject {
   private boolean walkingLeft = false;
   private int frame = 0;
   private int frameRate = 0;
+  private ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   
   public Player(float x, float y, Game game) {
     super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png")));
     this.hasKey = false;
+    for (Hitbox hitbox: game.getHitboxes()) {
+      hitboxList.add(hitbox);
+    }
   }
   
   void update(float dt) {
@@ -28,7 +32,7 @@ class Player extends GameObject {
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
-    for (Hitbox hitbox: game.getHitboxes()) {
+    for (Hitbox hitbox: hitboxList) {
       if (!(hitbox.getParent() instanceof Player)) {
         if (game.collision(this.hitbox, hitbox)) {
           if (hitbox.getParent() instanceof Key) {

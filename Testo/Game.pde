@@ -1,9 +1,14 @@
 class Game {
   Camera camera;
   Player player;
+  int currentLevel;
   
-  Platform platform1a;
-  Platform platform1b;
+  Platform platforma1;
+  Platform platforma2;
+  Platform platforma3;
+  Platform platforma4;
+  Platform platformb1;
+  Platform platformb2;
   
   Platform platform;
   Platform platform2;
@@ -22,27 +27,32 @@ class Game {
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
+    currentLevel = 1;
     levelOne();
-    //camera = new Camera(this);
-    //player = new Player(width / 2, height / 2, this); 
-    //platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
-    //platform2 = new Platform(platform.getX() + platform.getWidth() - 200, height / 2, 100.0, 700.0, this);
-    //platform3 = new Platform(width / 1.5, height / 4 + 50, 500.0, 200.0, this);
-    //platform4 = new Platform(width / 2.5, height / 1.5, 50, 50.0, this);
-    //Platform platform5 = new Platform(width / 2.5 - 100, height / 1.5 - 100, 50, 50.0, this);
-    //Platform platform6 = new Platform(width / 2.5, height / 1.5 - 200, 50, 50.0, this);
-    //Door door1 = new Door(width/2, height/2, this);
-    //Key key1 = new Key(width/2, height/3, this);
-    //mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
-   // mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
-   // mvPlatform3 = new Moving_Platform(0, height, 3, this);
     
+  }
+  
+  public void nextLevel() { 
+    currentLevel += 1;
+    System.out.println("Now");
+    allHitboxes.clear();
+    System.out.println("Here");
+    allObjects.clear();
+    System.out.println("There");
+    
+    if (currentLevel == 2) {
+      levelTwo();
+    } 
+    
+    levelComplete = false;
   }
   
   void update(float dt) {
     if (gameOver == false) {
-      camera.update(dt);
-      player.update(dt);
+      //if (currentLevel == 1) {
+        camera.update(dt);
+        player.update(dt);
+     // }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);
@@ -92,24 +102,34 @@ class Game {
   public void levelComplete() {
     levelComplete = true;
     System.out.println("level is complete");
+    nextLevel();
+    
   }
   
   public void levelOne() { 
-    camera = new Camera(this);
-    player = new Player(width / 2, height / 2, this); 
     
-    platform1a = new Platform(width / 4, height / 1.3, 100000, 500, this);
-    platform1b = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
+    
+    platforma1 = new Platform(width / 4, height / 1.3, 400, 500, this);
+    platforma2 = new Platform(width / 4 + 400, height / 1.3, 400, 500, this);
+    platforma3 = new Platform(width / 4 + 800, height / 1.3, 400, 500, this);
+    platforma4 = new Platform(width / 4 + 1200, height / 1.3, 400, 500, this);
+    
+    platformb1 = new Platform(width / 1.5, height / 1.7, 300, 25.0, this);
+    platformb2 = new Platform(width / 1.5 + 300, height / 1.7, 300, 25.0, this);
+    platformb2 = new Platform(width / 1.5 + 600, height / 1.7, 300, 25.0, this);
     
     Door door1 = new Door(width/1.5, height/1.5, this);
-    Key key1 = new Key(width/1, height/2.1, this);
+    Key key1 = new Key(width/1.5 + 30, height/1.5, this);
+    
+    
+    player = new Player(width / 2, height / 2, this); 
+    camera = new Camera(this);
   }
   
   public void levelTwo() {
     //allHitboxes = new ArrayList<Hitbox>();
     //allObjects = new ArrayList<GameObject>();
-    camera = new Camera(this);
-    player = new Player(width / 2, height / 2, this); 
+     
     
     platform = new Platform(width/4 + 200, height / 1.3, 500, 500, this);
     platform2 = new Platform(width/4 + 600, height / 1.3, 300, 500, this);
@@ -119,5 +139,8 @@ class Game {
     platform5 = new Platform(width / 1.5 + 400, height / 1.7, 200, 25.0, this);
     Door door1 = new Door(width/1.5, height/1.5, this);
     Key key1 = new Key(width/1, height/2.1, this);
+    
+    player = new Player(width / 2, height / 2, this);
+    camera = new Camera(this);
   }
 }
