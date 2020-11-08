@@ -10,6 +10,7 @@ void setup() {
   game = new Game();
   previousFrameTime = millis();
   inputMap = new HashMap();
+  
 }
 
 void draw() {

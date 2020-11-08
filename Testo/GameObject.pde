@@ -20,8 +20,9 @@ class GameObject {
       this.image.add(loadImage(image));
     }
     
-    
-    this.hitbox = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
+    if (! (this instanceof Background)) {
+      this.hitbox = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
+    }
     
     this.game.addObject(this);
   }

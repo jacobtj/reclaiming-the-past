@@ -16,9 +16,10 @@ class Player extends GameObject {
   private boolean walkingLeft = false;
   private int frame = 0;
   private int frameRate = 0;
-  
-  public Player(float x, float y, Game game) {
-    super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png")));
+  private int frameRateChi = 0;
+  boolean constructChi = true;
+  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img) {
+    super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
   }
   
@@ -57,12 +58,12 @@ class Player extends GameObject {
       time += 1;
     } 
     if (!hasChi) {
-      if (this instanceof MainPlayer) {
+      if (this instanceof Player) {
        // System.out.println("MainPlayer stopped");
       }
     }
     if (hasChi) {
-      if (this instanceof MainPlayer) {
+      if (this instanceof Player) {
         //System.out.println("MainPlayer can move");
       }
     }
@@ -195,13 +196,19 @@ class Player extends GameObject {
     } else {
       image(this.image.get(frame % this.image.size()), x, y, w, h);
     }
-    if (isWalking) { 
+    if (isWalking || !(this instanceof Chi)) { 
       frameRate += 1;
       if (frameRate >= 10) {
         frameRate = 0;
         frame += 1;
       }
-    }  
+    } if (this instanceof Chi) {
+      frameRateChi += 1;
+      if (frameRateChi >= 5) {
+        frameRateChi = 0;
+        frame += 1;
+      }
+    }
   }
 }
   

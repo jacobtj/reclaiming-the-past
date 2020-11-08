@@ -38,11 +38,17 @@ class Hitbox {
   
   public void draw() {
     fill(colors[0], colors[1], colors[2]);
+    if (!(parent instanceof Key)) {
     rect(x, y, w, h);
+    }
     if (parent instanceof Platform) {
       ((Platform) parent).drawPlatform();
     } if (parent instanceof Player) {
       ((Player) parent).draw();
+    } if (parent instanceof Key) {
+      ((Key) parent).draw();
+    } if (parent instanceof Door) {
+      ((Door) parent).draw();
     }
   }
   

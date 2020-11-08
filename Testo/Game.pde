@@ -1,6 +1,7 @@
 class Game {
+  Background background;
   Camera camera;
-  MainPlayer player;
+  Player player;
   Chi chi;
   Platform platform;
   Platform platform2;
@@ -9,14 +10,26 @@ class Game {
   Moving_Platform mvPlatform;
   Moving_Platform mvPlatform2;
   Moving_Platform mvPlatform3;
+  Key memoryCore;
+  Door portal;
   private ArrayList<Hitbox> allHitboxes;
   private ArrayList<GameObject> allObjects;
   private boolean gameOver = false;
   private boolean levelComplete = false;
+  private ArrayList<String> playerImage;
+  private ArrayList<String> chiImage;
+  private ArrayList<String> backgroundImage;
+  private ArrayList<String> coreImage;
+  private ArrayList<String> portalImage;
   
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
+    playerImage = new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png"));
+    chiImage = new ArrayList<String>(Arrays.asList("images/chi1.png", "images/chi2.png", "images/chi3.png", "images/chi4.png", "images/chi5.png", "images/chi6.png", "images/chi7.png", "images/chi8.png", "images/chi9.png", "images/chi10.png", "images/chi11.png", "images/chi12.png", "images/chi13.png", "images/chi14.png", "images/chi15.png"));
+    backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png"));
+    coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
+    portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     levelOne();
     //camera = new Camera(this);
     //player = new Player(width / 2, height / 2, this); 
@@ -73,6 +86,7 @@ class Game {
   
   void draw() {
     if (gameOver == false) {
+      background.draw();
       for (int i = 0; i < allHitboxes.size(); i += 1) {
         allHitboxes.get(i).draw();
       }
@@ -94,13 +108,14 @@ class Game {
     //allHitboxes = new ArrayList<Hitbox>();
     //allObjects = new ArrayList<GameObject>();
     camera = new Camera(this);
-    player = new MainPlayer(width / 2, height / 2, this); 
-    chi = new Chi(width / 2, height / 2, player, this);
+    background = new Background(this, backgroundImage);
+    player = new Player(width / 2, height / 2, 30.0, 50.0, this, playerImage); 
+    chi = new Chi(width / 2, height / 2, player, this, chiImage);
     platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
     platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
-    Door door1 = new Door(width/0.75, height/1.5, this);
-    Key key1 = new Key(width/1, height/2.1, this);
-    mvPlatform = new Moving_Platform(width / 2, height / 2, 100, 100, 4, this);
-    Lever lever1 = new Lever(width/1, height/1.8, mvPlatform, this);
+    Door door1 = new Door(width/0.75, height/1.5, this, portalImage);
+    Key key1 = new Key(width/1, height/2.1, this, coreImage);
+    mvPlatform = new Moving_Platform(width / 2, height / 2, 100, 100, 4, this, "hi");
+  //  Lever lever1 = new Lever(width/1, height/1.8, mvPlatform, this);
   }
 }

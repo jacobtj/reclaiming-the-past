@@ -1,10 +1,12 @@
 class Chi extends Player {
   private boolean detached = false;
-  private MainPlayer parent;
+  private Player parent;
   private boolean jumping = false;
   private boolean pressed_down = false;
-  public Chi(float x, float y, MainPlayer parent, Game game) {
-    super(x - 30, y, game);
+ 
+  
+  public Chi(float x, float y, Player parent, Game game, ArrayList<String> img) {
+    super(x - 10, y, 10.0, 40.0, game, img);
     this.parent = parent;
   }
  
@@ -18,7 +20,7 @@ class Chi extends Player {
        y = parent.getY() - 10;
       }
       if (isKeyDown('a')) {
-        x = parent.getX() + 20;
+        x = parent.getX() + 35;
       }
       if (isKeyDown('d')) {
         x = parent.getX() - 20;
@@ -54,6 +56,8 @@ class Chi extends Player {
       parent.stopSelf(detached);
      // update(dt);
     }
+    
+
     
    
 }

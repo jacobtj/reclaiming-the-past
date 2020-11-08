@@ -6,7 +6,7 @@ class Lever extends GameObject {
   private boolean on;
   
   public Lever(float x, float y, Moving_Platform child, Game game) {
-    super(x, y, 10, 10, new int[] {100, 100, 255}, game);
+    super(x, y, 10, 10, new int[] {100, 100, 255}, game, new ArrayList<String>(Arrays.asList("i")));
     this.child = child;
     this.on = false;
   }

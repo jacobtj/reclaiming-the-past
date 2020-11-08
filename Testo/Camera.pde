@@ -20,7 +20,9 @@ class Camera {
     for (GameObject object : game.getObjects()) {
       if (object.toString() != "Player") {
         object.setX(object.getX() - speed);
-        object.getHitbox().update(object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
+        if (! (object instanceof Background)) {
+          object.getHitbox().update(object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
+        }
       } else {
         if (object.getX() <= 0) {
           object.setX(0);
