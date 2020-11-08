@@ -24,11 +24,21 @@ class Player extends GameObject {
     for (Hitbox hitbox: game.getHitboxes()) {
       if (!(hitbox.getParent() instanceof Player)) {
         if (game.collision(this.hitbox, hitbox)) {
-          touches = true;
-         // gravity(dt);
-          String o = whichOrientation(this.hitbox, hitbox);
-         // System.out.println(o);
-          stopPlayer(o, dt, hitbox);
+          if (hitbox.getParent() instanceof Key) {
+            this.hasKey = true;
+            System.out.println(hasKey);
+          } 
+          else if (hitbox.getParent() instanceof Door) { 
+            if (hasKey == true) {
+              game.levelComplete();
+            }
+          } 
+          else {
+            touches = true;
+            // gravity(dt);
+            String o = whichOrientation(this.hitbox, hitbox);
+            stopPlayer(o, dt, hitbox);
+          }
         }
       }
     }
@@ -73,6 +83,7 @@ class Player extends GameObject {
     gravity(dt);
     super.update(dt);
   }
+
   
   void pickup() {
     this.hasKey = true;

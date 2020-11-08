@@ -12,19 +12,22 @@ class Game {
   private ArrayList<Hitbox> allHitboxes;
   private ArrayList<GameObject> allObjects;
   private boolean gameOver = false;
+  private boolean levelComplete = false;
   
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
-    camera = new Camera(this);
-    player = new MainPlayer(width / 2, height / 2, this); 
-    chi = new Chi(width / 2, height / 2, player, this);
-    platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
-    platform2 = new Platform(platform.getX() + platform.getWidth() - 200, height / 2, 100.0, 700.0, this);
-    platform3 = new Platform(width / 1.5, height / 4 + 50, 500.0, 200.0, this);
-    platform4 = new Platform(width / 2.5, height / 1.5, 50, 50.0, this);
-    Platform platform5 = new Platform(width / 2.5 - 100, height / 1.5 - 100, 50, 50.0, this);
-    Platform platform6 = new Platform(width / 2.5, height / 1.5 - 200, 50, 50.0, this);
+    levelOne();
+    //camera = new Camera(this);
+    //player = new Player(width / 2, height / 2, this); 
+    //platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
+    //platform2 = new Platform(platform.getX() + platform.getWidth() - 200, height / 2, 100.0, 700.0, this);
+    //platform3 = new Platform(width / 1.5, height / 4 + 50, 500.0, 200.0, this);
+    //platform4 = new Platform(width / 2.5, height / 1.5, 50, 50.0, this);
+    //Platform platform5 = new Platform(width / 2.5 - 100, height / 1.5 - 100, 50, 50.0, this);
+    //Platform platform6 = new Platform(width / 2.5, height / 1.5 - 200, 50, 50.0, this);
+    //Door door1 = new Door(width/2, height/2, this);
+    //Key key1 = new Key(width/2, height/3, this);
     //mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
    // mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
    // mvPlatform3 = new Moving_Platform(0, height, 3, this);
@@ -82,4 +85,19 @@ class Game {
     gameOver = true;
   }
   
+  public void levelComplete() {
+    levelComplete = true;
+    System.out.println("level is complete");
+  }
+  
+  public void levelOne() {
+    //allHitboxes = new ArrayList<Hitbox>();
+    //allObjects = new ArrayList<GameObject>();
+    camera = new Camera(this);
+    player = new MainPlayer(width / 2, height / 2, this); 
+    platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
+    platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
+    Door door1 = new Door(width/0.75, height/1.5, this);
+    Key key1 = new Key(width/1, height/2.1, this);
+  }
 }
