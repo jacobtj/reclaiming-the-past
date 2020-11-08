@@ -11,6 +11,7 @@ class Game {
   private ArrayList<Hitbox> allHitboxes;
   private ArrayList<GameObject> allObjects;
   private boolean gameOver = false;
+  private boolean levelComplete = false;
   
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
@@ -23,6 +24,8 @@ class Game {
     platform4 = new Platform(width / 2.5, height / 1.5, 50, 50.0, this);
     Platform platform5 = new Platform(width / 2.5 - 100, height / 1.5 - 100, 50, 50.0, this);
     Platform platform6 = new Platform(width / 2.5, height / 1.5 - 200, 50, 50.0, this);
+    Door door1 = new Door(width/2, height/2, this);
+    Key key1 = new Key(width/2, height/3, this);
     //mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
    // mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
    // mvPlatform3 = new Moving_Platform(0, height, 3, this);
@@ -77,6 +80,11 @@ class Game {
   
   public void gameOver() {
     gameOver = true;
+  }
+  
+  public void levelComplete() {
+    levelComplete = true;
+    System.out.println("level is complete");
   }
   
 }
