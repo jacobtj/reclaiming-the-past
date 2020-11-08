@@ -23,16 +23,16 @@ class Hitbox {
     return parent;
   }
   
-  public double getX() {
+  public float getX() {
     return x;
   }
-  public double getY() {
+  public float getY() {
     return y;
   }
-  public double getWidth() {
+  public float getWidth() {
     return w;
   }
-  public double getHeight() {
+  public float getHeight() {
     return h;
   }
   
