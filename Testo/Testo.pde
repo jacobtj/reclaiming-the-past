@@ -1,6 +1,9 @@
+
+
 Game game;
 float previousFrameTime;
 HashMap<Integer, Boolean> inputMap;
+
 
 void setup() {
   size(1280, 720);

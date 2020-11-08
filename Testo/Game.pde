@@ -95,6 +95,7 @@ class Game {
     //allObjects = new ArrayList<GameObject>();
     camera = new Camera(this);
     player = new MainPlayer(width / 2, height / 2, this); 
+    chi = new Chi(width / 2, height / 2, player, this);
     platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
     platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
     Door door1 = new Door(width/0.75, height/1.5, this);

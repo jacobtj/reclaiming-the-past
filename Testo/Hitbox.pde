@@ -41,6 +41,8 @@ class Hitbox {
     rect(x, y, w, h);
     if (parent instanceof Platform) {
       ((Platform) parent).drawPlatform();
+    } if (parent instanceof Player) {
+      ((Player) parent).draw();
     }
   }
   

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 class Player extends GameObject {
   private boolean hasKey = false;
   private float accely_scale = 0.2;
@@ -11,13 +12,17 @@ class Player extends GameObject {
   private boolean jumping = false;
   private boolean ready_to_jump = false;
   private boolean hasChi = true;
+  private boolean isWalking = false;
+  private int frame = 0;
+  private int frameRate = 0;
   
   public Player(float x, float y, Game game) {
-    super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, "images/platform.png");
+    super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png")));
     this.hasKey = false;
   }
   
   void update(float dt) {
+    isWalking = false;
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
@@ -69,9 +74,11 @@ class Player extends GameObject {
       }
       if (isKeyDown('a')) {
         x -= xvelo * dt;
+        isWalking = true;
       }
       if (isKeyDown('d')) {
         x += xvelo * dt;
+        isWalking = true;
       }
     } 
     if (jumping) {
@@ -174,6 +181,18 @@ class Player extends GameObject {
   
   public String toString() {
     return "Player";
+  }
+  
+  void draw() {
+    this.image.get(frame % this.image.size()).resize(-(int) w, (int) h);
+    image(this.image.get(frame % this.image.size()), x, y, w, h);
+    if (isWalking) { 
+      frameRate += 1;
+      if (frameRate >= 10) {
+        frameRate = 0;
+        frame += 1;
+      }
+    }  
   }
 }
   

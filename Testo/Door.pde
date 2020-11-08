@@ -4,7 +4,7 @@ class Door extends GameObject {
   private Game game;
   
   public Door(float x, float y, Game game) {
-    super(x, y, 5.0, 30.0, new int[] {255, 0, 255}, game, "images/platform.png");
+    super(x, y, 5.0, 30.0, new int[] {255, 0, 255}, game, new ArrayList<String>(Arrays.asList("images/platform.png")));
   }
   
   //let the player pass through the door if they have KEY
