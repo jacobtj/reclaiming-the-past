@@ -18,9 +18,9 @@ class Game {
   
   void update(float dt) {
     player.update(dt);
-    mvPlatform.update(dt);
-    mvPlatform2.update(dt);
-    mvPlatform3.update(dt);
+   // mvPlatform.update(dt);
+   // mvPlatform2.update(dt);
+  //  mvPlatform3.update(dt);
   }
   
   public void addObject(GameObject object) {
