@@ -1,11 +1,11 @@
 import java.util.Arrays;
 class Player extends GameObject {
   private boolean hasKey = false;
-  private float accely_scale = 0.2;
+    private float accely_scale = 0.6;     //speed of falling
   private float accely = accely_scale;
-  private float max_accel = 7;
+  private float max_accel = 150;        //max accel of gravity (?)
   private float xvelo = 200.0;
-  private float yvelo = 5.0;
+  private float yvelo = 11.0;           //jumping speed
   private float time = 0;
   public float chiTime = 0;
   private boolean touches = false;
