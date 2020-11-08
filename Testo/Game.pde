@@ -34,11 +34,8 @@ class Game {
   
   public void nextLevel() { 
     currentLevel += 1;
-    System.out.println("Now");
     allHitboxes.clear();
-    System.out.println("Here");
     allObjects.clear();
-    System.out.println("There");
     
     if (currentLevel == 2) {
       levelTwo();
@@ -53,7 +50,7 @@ class Game {
         camera.update(dt);
         player.update(dt);
      // }
-
+     // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);
     } 
@@ -88,11 +85,14 @@ class Game {
   void draw() {
     if (gameOver == false) {
       for (int i = 0; i < allHitboxes.size(); i += 1) {
-        allHitboxes.get(i).draw();
+        if (allHitboxes.get(i).getInvisible() == false) { 
+          allHitboxes.get(i).draw();
+        }
       }
     } else {
       clear();
     }
+   
   }
   
   public void gameOver() {
@@ -142,13 +142,5 @@ class Game {
     
     player = new Player(width / 2, height / 2, this);
     camera = new Camera(this);
-  }
-  
-  public void testMovingPlatform() { 
-    camera = new Camera(this);
-    player = new Player(width / 2, height / 2, this); 
-    
-    platform1a = new Platform(width / 4, height / 1.3, 100000, 500, this);
-    mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);
   }
 }

@@ -37,6 +37,7 @@ class Player extends GameObject {
         if (game.collision(this.hitbox, hitbox)) {
           if (hitbox.getParent() instanceof Key) {
             this.hasKey = true;
+            hitbox.setInvisible(true);
             System.out.println(hasKey);
           } 
           else if (hitbox.getParent() instanceof Door) { 

@@ -6,6 +6,7 @@ class Hitbox {
   private int[] colors;
   private Game game;
   private GameObject parent;
+  boolean invisible = false;
   
   public Hitbox(float x, float y, float w, float h, int[] colors, Game game, GameObject parent) {
     this.game = game;
@@ -35,6 +36,12 @@ class Hitbox {
   public float getHeight() {
     return h;
   }
+  public boolean getInvisible() {
+    return invisible;
+  }
+  public void setInvisible(boolean b) { 
+    invisible = b;
+  } 
   
   public void draw() {
     fill(colors[0], colors[1], colors[2]);
@@ -43,7 +50,8 @@ class Hitbox {
       ((Platform) parent).drawPlatform();
     } if (parent instanceof Player) {
       ((Player) parent).draw();
-    }
+    } 
+    
   }
   
   public void update(float x, float y, float w, float h, int[] colors) {
