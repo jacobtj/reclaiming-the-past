@@ -27,18 +27,31 @@ class Player extends GameObject {
     touches = false;
     ready_to_jump = false;
     for (Hitbox hitbox: game.getHitboxes()) {
-      if (!(hitbox.getParent() instanceof Player)) {
-        if (game.collision(this.hitbox, hitbox)) {
-          if (hitbox.getParent() instanceof Key) {
+      if (!hitbox.getParent().equals(this)) {
+        if (game.collision(this.hitbox, hitbox)) 
+        {
+          if (hitbox.getParent() instanceof Key) 
+          {
             this.hasKey = true;
-            System.out.println(hasKey);
-          } 
-          else if (hitbox.getParent() instanceof Door) { 
-            if (hasKey == true) {
-              game.levelComplete();
+          }      
+          else if (hitbox.getParent() instanceof Lever) 
+          {
+            if (isKeyDown('e')) {
+              ((Lever) hitbox.getParent()).flip();
+            }
+            if (((Lever) hitbox.getParent()).status()) {
+              ((Moving_Platform)((Lever) hitbox.getParent()).getChild()).update(dt);
             }
           } 
-          else {
+          else if (hitbox.getParent() instanceof Door) 
+          { 
+            if (hasKey == true) 
+            {
+              game.levelComplete();          
+            }
+          } 
+          else 
+          {   
             touches = true;
             // gravity(dt);
             String o = whichOrientation(this.hitbox, hitbox);

@@ -100,5 +100,7 @@ class Game {
     platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
     Door door1 = new Door(width/0.75, height/1.5, this);
     Key key1 = new Key(width/1, height/2.1, this);
+    mvPlatform = new Moving_Platform(width / 2, height / 2, 100, 100, 4, this);
+    Lever lever1 = new Lever(width/1, height/1.8, mvPlatform, this);
   }
 }
