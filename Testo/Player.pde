@@ -1,7 +1,7 @@
 import java.util.Arrays;
 class Player extends GameObject {
   private boolean hasKey = false;
-    private float accely_scale = 0.6;     //speed of falling
+  private float accely_scale = 0.6;     //speed of falling
   private float accely = accely_scale;
   private float max_accel = 150;        //max accel of gravity (?)
   private float xvelo = 200.0;
