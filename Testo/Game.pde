@@ -1,11 +1,12 @@
 class Game {
   Camera camera;
-  MainPlayer player;
-  Chi chi;
+  Player player;
   Platform platform;
   Platform platform2;
   Platform platform3;
   Platform platform4;
+  Platform platform5;
+  
   Moving_Platform mvPlatform;
   Moving_Platform mvPlatform2;
   Moving_Platform mvPlatform3;
@@ -38,7 +39,6 @@ class Game {
     if (gameOver == false) {
       camera.update(dt);
       player.update(dt);
-      chi.update(dt);
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);
@@ -90,17 +90,18 @@ class Game {
     System.out.println("level is complete");
   }
   
-  public void levelOne() {
+  public void levelTwo() {
     //allHitboxes = new ArrayList<Hitbox>();
     //allObjects = new ArrayList<GameObject>();
     camera = new Camera(this);
-    player = new MainPlayer(width / 2, height / 2, this); 
-    chi = new Chi(width / 2, height / 2, player, this);
-    platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
-    platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
-    Door door1 = new Door(width/0.75, height/1.5, this);
+    player = new Player(width / 2, height / 2, this); 
+    platform = new Platform(width/4 + 200, height / 1.3, 500, 500, this);
+    platform2 = new Platform(width/4 + 600, height / 1.3, 300, 500, this);
+    platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 300, this);
+    
+    platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
+    platform5 = new Platform(width / 1.5 + 400, height / 1.7, 200, 25.0, this);
+    Door door1 = new Door(width/1.5, height/1.5, this);
     Key key1 = new Key(width/1, height/2.1, this);
-    mvPlatform = new Moving_Platform(width / 2, height / 2, 100, 100, 4, this);
-    Lever lever1 = new Lever(width/1, height/1.8, mvPlatform, this);
   }
 }
