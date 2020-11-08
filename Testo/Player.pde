@@ -61,27 +61,6 @@ class Player extends GameObject {
     }
     if (!ready_to_jump) {
       time += 1;
-<<<<<<< HEAD
-    }
-    if (isKeyDown('w')) {
-     // y -= accely * dt;
-    }
-    if (isKeyDown('s')) {
-     // y += accely * dt;
-    }
-    if (isKeyDown('a')) {
-      x -= xvelo * dt;
-    }
-    if (isKeyDown('d')) {
-      x += xvelo * dt;
-    }
-    if (jumping) {
-      jump();
-    }
-    gravity(dt);
-    super.update(dt);
-  }
-=======
     } 
     if (!hasChi) {
       if (this instanceof MainPlayer) {
@@ -130,7 +109,6 @@ class Player extends GameObject {
       hasChi = true;
     }
   }
->>>>>>> a1537123b93b41f5a6b330ed61f59edf0a4fe083
   
   private String whichOrientation(Hitbox box1, Hitbox box2) {
     //player on top
