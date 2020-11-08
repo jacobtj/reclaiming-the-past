@@ -6,14 +6,17 @@ class GameObject {
   protected int[] colors;
   protected Game game;
   protected Hitbox hitbox;
+  protected PImage image;
   
-  public GameObject(float x, float y, float w, float h, int[] colors, Game game) {
+  public GameObject(float x, float y, float w, float h, int[] colors, Game game, String img) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.colors = colors;
     this.game = game;
+    this.image = loadImage(img);
+    
     
     this.hitbox = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
     

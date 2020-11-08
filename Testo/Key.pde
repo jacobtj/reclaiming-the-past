@@ -4,7 +4,7 @@ class Key extends GameObject {
   private Game game;
   
   public Key(float x, float y, Game game) {
-    super(x, y, 0, 0, new int[] {0, 255, 255}, game);
+    super(x, y, 0, 0, new int[] {0, 255, 255}, game, "images/platform.png");
   }
 
   public String toString() {

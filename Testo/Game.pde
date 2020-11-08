@@ -1,6 +1,7 @@
 class Game {
   Camera camera;
-  Player player;
+  MainPlayer player;
+  Chi chi;
   Platform platform;
   Platform platform2;
   Platform platform3;
@@ -16,7 +17,8 @@ class Game {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
     camera = new Camera(this);
-    player = new Player(width / 2, height / 2, this); 
+    player = new MainPlayer(width / 2, height / 2, this); 
+    chi = new Chi(width / 2, height / 2, player, this);
     platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
     platform2 = new Platform(platform.getX() + platform.getWidth() - 200, height / 2, 100.0, 700.0, this);
     platform3 = new Platform(width / 1.5, height / 4 + 50, 500.0, 200.0, this);
@@ -33,6 +35,7 @@ class Game {
     if (gameOver == false) {
       camera.update(dt);
       player.update(dt);
+      chi.update(dt);
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);

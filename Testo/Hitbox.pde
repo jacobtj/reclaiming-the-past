@@ -39,6 +39,9 @@ class Hitbox {
   public void draw() {
     fill(colors[0], colors[1], colors[2]);
     rect(x, y, w, h);
+    if (parent instanceof Platform) {
+      ((Platform) parent).drawPlatform();
+    }
   }
   
   public void update(float x, float y, float w, float h, int[] colors) {
