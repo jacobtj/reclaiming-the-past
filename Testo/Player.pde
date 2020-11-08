@@ -2920,19 +2920,27 @@ class Player extends GameObject {
         jumping = true;
       }
     } if (orientation.equals("left")) {
-      xvelo = 0;
+      if (x <= 0) {
+        game.gameOver();
+      }
+     // xvelo = 0;
       x = object.getX() - w;
       if (isKeyDown('a')) {
         xvelo = 200;
       }
     } if (orientation.equals("right")) {
       x = object.getX() + object.getWidth();
-      xvelo = 0;
+      if (x + w >= width) {
+        game.gameOver();
+      }
+      //xvelo = 0;
       if (isKeyDown('d')) {
         xvelo = 200;
       }
     } else if (orientation.equals("bottom")){
       jumping = false;
+    } else {
+      //System.out.println("YOU DIE.... (please try again! : ) )");
     }
   }
   
