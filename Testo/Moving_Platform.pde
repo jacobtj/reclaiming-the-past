@@ -7,8 +7,8 @@ class Moving_Platform extends Platform {
 
   private Game game;
   
-  public Moving_Platform(float x, float y, float w, float h, int direction, Game game) {
-    super(x,y,w,h,game);
+  public Moving_Platform(float x, float y, float w, float h, int direction, Game game, String img) {
+    super(x,y,w,h, game);
     this.direction = direction;
   }
   
