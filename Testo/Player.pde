@@ -13,6 +13,7 @@ class Player extends GameObject {
   private boolean ready_to_jump = false;
   private boolean hasChi = true;
   private boolean isWalking = false;
+  private boolean walkingLeft = false;
   private int frame = 0;
   private int frameRate = 0;
   
@@ -23,35 +24,23 @@ class Player extends GameObject {
   
   void update(float dt) {
     isWalking = false;
+    walkingLeft = false;
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
     for (Hitbox hitbox: game.getHitboxes()) {
-      if (!hitbox.getParent().equals(this)) {
-        if (game.collision(this.hitbox, hitbox)) 
-        {
-          if (hitbox.getParent() instanceof Key) 
-          {
+      if (!(hitbox.getParent() instanceof Player)) {
+        if (game.collision(this.hitbox, hitbox)) {
+          if (hitbox.getParent() instanceof Key) {
             this.hasKey = true;
-          }      
-          else if (hitbox.getParent() instanceof Lever) 
-          {
-            if (isKeyDown('e')) {
-              ((Lever) hitbox.getParent()).flip();
-            }
-            if (((Lever) hitbox.getParent()).status()) {
-              ((Moving_Platform)((Lever) hitbox.getParent()).getChild()).update(dt);
+            System.out.println(hasKey);
+          } 
+          else if (hitbox.getParent() instanceof Door) { 
+            if (hasKey == true) {
+              game.levelComplete();
             }
           } 
-          else if (hitbox.getParent() instanceof Door) 
-          { 
-            if (hasKey == true) 
-            {
-              game.levelComplete();          
-            }
-          } 
-          else 
-          {   
+          else {
             touches = true;
             // gravity(dt);
             String o = whichOrientation(this.hitbox, hitbox);
@@ -88,6 +77,7 @@ class Player extends GameObject {
       if (isKeyDown('a')) {
         x -= xvelo * dt;
         isWalking = true;
+        walkingLeft = true;
       }
       if (isKeyDown('d')) {
         x += xvelo * dt;
@@ -197,8 +187,14 @@ class Player extends GameObject {
   }
   
   void draw() {
-    this.image.get(frame % this.image.size()).resize(-(int) w, (int) h);
-    image(this.image.get(frame % this.image.size()), x, y, w, h);
+    if (walkingLeft) {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(this.image.get(frame % this.image.size()), -x - w, y, w, h);
+      popMatrix();
+    } else {
+      image(this.image.get(frame % this.image.size()), x, y, w, h);
+    }
     if (isWalking) { 
       frameRate += 1;
       if (frameRate >= 10) {
