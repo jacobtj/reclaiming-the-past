@@ -10,6 +10,7 @@ class Game {
   Moving_Platform mvPlatform3;
   private ArrayList<Hitbox> allHitboxes;
   private ArrayList<GameObject> allObjects;
+  private boolean gameOver = false;
   
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
@@ -29,11 +30,13 @@ class Game {
   }
   
   void update(float dt) {
-    camera.update(dt);
-    player.update(dt);
-   // mvPlatform.update(dt);
-   // mvPlatform2.update(dt);
-  //  mvPlatform3.update(dt);
+    if (gameOver == false) {
+      camera.update(dt);
+      player.update(dt);
+     // mvPlatform.update(dt);
+     // mvPlatform2.update(dt);
+    //  mvPlatform3.update(dt);
+    } 
   }
   
   public void addObject(GameObject object) {
@@ -63,9 +66,17 @@ class Game {
   }
   
   void draw() {
-    for (int i = 0; i < allHitboxes.size(); i += 1) {
-      allHitboxes.get(i).draw();
+    if (gameOver == false) {
+      for (int i = 0; i < allHitboxes.size(); i += 1) {
+        allHitboxes.get(i).draw();
+      }
+    } else {
+      clear();
     }
+  }
+  
+  public void gameOver() {
+    gameOver = true;
   }
   
 }
