@@ -14,15 +14,16 @@ class Player extends GameObject {
   private boolean hasChi = true;
   private boolean isWalking = false;
   private boolean walkingLeft = false;
-  private boolean justLanded = false;
-  private float diff_x = 0;
-  private float diff_y = 0;
   private int frame = 0;
   private int frameRate = 0;
+  private ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   
   public Player(float x, float y, Game game) {
     super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png")));
     this.hasKey = false;
+    for (Hitbox hitbox: game.getHitboxes()) {
+      hitboxList.add(hitbox);
+    }
   }
   
   void update(float dt) {
@@ -31,6 +32,44 @@ class Player extends GameObject {
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
+    for (Hitbox hitbox: hitboxList) {
+      if (!(hitbox.getParent() instanceof Player)) {
+        if (game.collision(this.hitbox, hitbox)) {
+          if (hitbox.getParent() instanceof Key) {
+            this.hasKey = true;
+            System.out.println(hasKey);
+          } 
+          else if (hitbox.getParent() instanceof Door) { 
+            if (hasKey == true) {
+              game.levelComplete();
+            }
+          } 
+          else {
+            touches = true;
+            // gravity(dt);
+            String o = whichOrientation(this.hitbox, hitbox);
+            stopPlayer(o, dt, hitbox);
+          }
+        }
+      }
+    }
+    if (!touches) {
+      xvelo = 200.0;
+      accely = accely_scale;
+    }
+    if (!ready_to_jump) {
+      time += 1;
+    } 
+    if (!hasChi) {
+      if (this instanceof MainPlayer) {
+       // System.out.println("MainPlayer stopped");
+      }
+    }
+    if (hasChi) {
+      if (this instanceof MainPlayer) {
+        //System.out.println("MainPlayer can move");
+      }
+    }
     if (hasChi) {
       
       if (isKeyDown('w')) {
@@ -49,67 +88,6 @@ class Player extends GameObject {
         isWalking = true;
       }
     } 
-    
-    for (Hitbox hitbox: game.getHitboxes()) {
-      if (!(hitbox.getParent() instanceof Player)) {
-        if (game.collision(this.hitbox, hitbox)) {
-          if (hitbox.getParent() instanceof Key) {
-            this.hasKey = true;
-            System.out.println(hasKey);
-          } 
-          else if (hitbox.getParent() instanceof Door) { 
-            if (hasKey == true) {
-              game.levelComplete();
-            }
-          }
-          else if (hitbox.getParent() instanceof Key) {
-            this.hasKey = true;
-            System.out.println(hasKey);
-          } 
-          else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox, hitbox) == "top") {
-           
-            touches = true;
-            String o = whichOrientation(this.hitbox, hitbox);
-            stopPlayer(o, dt, hitbox);
-            if (justLanded == false || isWalking) {
-              float curr_x = this.getX();
-              float curr_y = this.getY();
-              diff_x = curr_x - hitbox.getX();
-              diff_y = curr_y - hitbox.getY();
-            }
-             justLanded = true;
-           // System.out.println(justLanded);
-            this.setX(hitbox.getX() + diff_x);
-            this.setY(hitbox.getY() + diff_y);
-          }
-          else {
-            touches = true;
-            // gravity(dt);
-            String o = whichOrientation(this.hitbox, hitbox);
-            stopPlayer(o, dt, hitbox);
-          }
-        }
-      }
-    }
-    if (!touches) {
-      justLanded = false;
-      xvelo = 200.0;
-      accely = accely_scale;
-    }
-    if (!ready_to_jump) {
-      time += 1;
-    } 
-    if (!hasChi) {
-      if (this instanceof MainPlayer) {
-       // System.out.println("MainPlayer stopped");
-      }
-    }
-    if (hasChi) {
-      if (this instanceof MainPlayer) {
-        //System.out.println("MainPlayer can move");
-      }
-    }
-    
     if (jumping) {
       jump();
     }
