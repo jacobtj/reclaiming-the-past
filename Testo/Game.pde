@@ -22,7 +22,8 @@ class Game {
   public Game() {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
-    levelOne();
+    //levelOne();
+    testMovingPlatform();
     //camera = new Camera(this);
     //player = new Player(width / 2, height / 2, this); 
     //platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
@@ -43,7 +44,7 @@ class Game {
     if (gameOver == false) {
       camera.update(dt);
       player.update(dt);
-     // mvPlatform.update(dt);
+      mvPlatform.update(dt);
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);
     } 
@@ -119,5 +120,13 @@ class Game {
     platform5 = new Platform(width / 1.5 + 400, height / 1.7, 200, 25.0, this);
     Door door1 = new Door(width/1.5, height/1.5, this);
     Key key1 = new Key(width/1, height/2.1, this);
+  }
+  
+  public void testMovingPlatform() { 
+    camera = new Camera(this);
+    player = new Player(width / 2, height / 2, this); 
+    
+    platform1a = new Platform(width / 4, height / 1.3, 100000, 500, this);
+    mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);
   }
 }
