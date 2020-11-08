@@ -91,8 +91,8 @@ class Player extends GameObject {
             stopPlayer(o, dt, hitbox);
           }
         }
+        }
       }
-    }
     if (!touches) {
       justLanded = false;
       xvelo = 200.0;
@@ -132,6 +132,8 @@ class Player extends GameObject {
     } else {
       hasChi = true;
     }
+    //gravity(dt);
+    //super.update(dt);
   }
   
   private String whichOrientation(Hitbox box1, Hitbox box2) {
