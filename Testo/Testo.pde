@@ -7,7 +7,7 @@ HashMap<Integer, Boolean> inputMap;
 
 void setup() {
   size(1280, 720);
-  game = new Game();
+  game = new Game(this);
   previousFrameTime = millis();
   inputMap = new HashMap();
 }

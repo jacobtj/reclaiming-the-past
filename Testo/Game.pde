@@ -23,12 +23,15 @@ class Game {
   private ArrayList<GameObject> allObjects;
   private boolean gameOver = false;
   private boolean levelComplete = false;
+  private PApplet testo;
   
-  public Game() {
+  public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
+    this.testo = testo;
     currentLevel = 1;
     testMovingPlatform();
+    
     
   }
   
@@ -123,7 +126,7 @@ class Game {
     Key key1 = new Key(width/1.5 + 30, height/1.5, this);
     
     
-    player = new Player(width / 2, height / 2, this); 
+    player = new Player(width / 2, height / 2, this, testo); 
     camera = new Camera(this);
   }
   
@@ -141,13 +144,13 @@ class Game {
     Door door1 = new Door(width/1.5, height/1.5, this);
     Key key1 = new Key(width/1, height/2.1, this);
     
-    player = new Player(width / 2, height / 2, this);
+    player = new Player(width / 2, height / 2, this, testo);
     camera = new Camera(this);
   }
   
   public void testMovingPlatform() { 
     camera = new Camera(this);
-    player = new Player(width / 2, height / 2, this); 
+    player = new Player(width / 2, height / 2, this, testo); 
     
     platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
     mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);

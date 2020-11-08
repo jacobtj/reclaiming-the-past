@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import processing.sound.*;
+
 class Player extends GameObject {
   private boolean hasKey = false;
   private float accely_scale = 0.6;     //speed of falling
@@ -20,13 +22,18 @@ class Player extends GameObject {
   private int frame = 0;
   private int frameRate = 0;
   private ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
+  private SoundFile walking_sound;
+  private PApplet testo;
   
-  public Player(float x, float y, Game game) {
+  
+  public Player(float x, float y, Game game, PApplet testo) {
     super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png")));
     this.hasKey = false;
     for (Hitbox hitbox: game.getHitboxes()) {
       hitboxList.add(hitbox);
     }
+   walking_sound = new SoundFile(testo, "Sounds/footstep2.mp3");
+   walking_sound.amp(0.2);
   }
   
   void update(float dt) {
@@ -227,6 +234,11 @@ class Player extends GameObject {
     if (isWalking) { 
       frameRate += 1;
       if (frameRate >= 10) {
+        if (!walking_sound.isPlaying()) {
+          if (touches) {
+            walking_sound.play();
+          }
+        }
         frameRate = 0;
         frame += 1;
       }
