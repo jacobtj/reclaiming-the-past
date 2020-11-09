@@ -1,11 +1,11 @@
 import java.util.Arrays;
 class Player extends GameObject {
   private boolean hasKey = false;
-  private float accely_scale = 0.2;
+  private float accely_scale = 0.6;     //speed of falling
   private float accely = accely_scale;
-  private float max_accel = 7;
+  private float max_accel = 150;        //max accel of gravity (?)
   private float xvelo = 200.0;
-  private float yvelo = 5.0;
+  private float yvelo = 11.0;           //jumping speed
   private float time = 0;
   public float chiTime = 0;
   private boolean touches = false;
@@ -14,13 +14,21 @@ class Player extends GameObject {
   private boolean hasChi = true;
   private boolean isWalking = false;
   private boolean walkingLeft = false;
+  private boolean justLanded = false;
+  private float diff_x = 0;
+  private float diff_y = 0;
   private int frame = 0;
   private int frameRate = 0;
   private int frameRateChi = 0;
+  ArrayList<Hitbox> hitboxList;
   boolean constructChi = true;
-  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img) {
+  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img) { 
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
+    hitboxList = new ArrayList();
     this.hasKey = false;
+    for (Hitbox hitbox: game.getHitboxes()) {
+      hitboxList.add(hitbox);
+    }
   }
   
   void update(float dt) {
@@ -29,44 +37,7 @@ class Player extends GameObject {
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
-    for (Hitbox hitbox: game.getHitboxes()) {
-      if (!(hitbox.getParent() instanceof Player)) {
-        if (game.collision(this.hitbox, hitbox)) {
-          if (hitbox.getParent() instanceof Key) {
-            this.hasKey = true;
-            System.out.println(hasKey);
-          } 
-          else if (hitbox.getParent() instanceof Door) { 
-            if (hasKey == true) {
-              game.levelComplete();
-            }
-          } 
-          else {
-            touches = true;
-            // gravity(dt);
-            String o = whichOrientation(this.hitbox, hitbox);
-            stopPlayer(o, dt, hitbox);
-          }
-        }
-      }
-    }
-    if (!touches) {
-      xvelo = 200.0;
-      accely = accely_scale;
-    }
-    if (!ready_to_jump) {
-      time += 1;
-    } 
-    if (!hasChi) {
-      if (this instanceof Player) {
-       // System.out.println("MainPlayer stopped");
-      }
-    }
-    if (hasChi) {
-      if (this instanceof Player) {
-        //System.out.println("MainPlayer can move");
-      }
-    }
+    
     if (hasChi) {
       
       if (isKeyDown('w')) {
@@ -85,6 +56,63 @@ class Player extends GameObject {
         isWalking = true;
       }
     } 
+    
+
+    for (Hitbox hitbox: game.getHitboxes()) {
+      if (!(hitbox.getParent() instanceof Player)) {
+        if (game.collision(this.hitbox, hitbox)) {
+          if (hitbox.getParent() instanceof Key) {
+            this.hasKey = true;
+            hitbox.setInvisible(true);
+            System.out.println(hasKey);
+          } 
+          else if (hitbox.getParent() instanceof Door) { 
+            if (hasKey == true) {
+              game.levelComplete();
+            }
+          } 
+          else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox, hitbox) == "top") {   
+            touches = true;
+            String o = whichOrientation(this.hitbox, hitbox);
+            stopPlayer(o, dt, hitbox);
+            if (justLanded == false || isWalking) {
+              float curr_x = this.getX();
+              float curr_y = this.getY();
+              diff_x = curr_x - hitbox.getX();
+              diff_y = curr_y - hitbox.getY();
+            }
+            justLanded = true;
+            // System.out.println(justLanded);
+            this.setX(hitbox.getX() + diff_x);
+            this.setY(hitbox.getY() + diff_y);
+          }
+          else {
+            touches = true;
+            // gravity(dt);
+            String o = whichOrientation(this.hitbox, hitbox);
+            stopPlayer(o, dt, hitbox);
+          }
+        }
+      }
+    }
+    if (!touches) {
+      justLanded = false;
+      xvelo = 200.0;
+      accely = accely_scale;
+    }
+    if (!ready_to_jump) {
+      time += 1;
+    } 
+    if (!hasChi) {
+      if (this instanceof Player) {
+       // System.out.println("MainPlayer stopped");
+      }
+    }
+    if (hasChi) {
+      if (this instanceof Player) {
+        //System.out.println("MainPlayer can move");
+      }
+    }
     if (jumping) {
       jump();
     }
