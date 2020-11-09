@@ -5,6 +5,8 @@ class Game {
   Chi chi;
   int currentLevel;
   
+  Platform startButton;
+  
   Platform platforma1;
   Platform platforma2;
   Platform platforma3;
@@ -32,6 +34,10 @@ class Game {
   private ArrayList<String> backgroundImage;
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
+  
+  private ArrayList<String> fallingImage;
+   private ArrayList<String> bullying1;
+  
   private PApplet testo;
   
   public Game(PApplet testo) {
@@ -43,26 +49,23 @@ class Game {
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     
-    //camera = new Camera(this);
-    //player = new Player(width / 2, height / 2, this); 
-    //platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
-    //platform2 = new Platform(platform.getX() + platform.getWidth() - 200, height / 2, 100.0, 700.0, this);
-    //platform3 = new Platform(width / 1.5, height / 4 + 50, 500.0, 200.0, this);
-    //platform4 = new Platform(width / 2.5, height / 1.5, 50, 50.0, this);
-    //Platform platform5 = new Platform(width / 2.5 - 100, height / 1.5 - 100, 50, 50.0, this);
-    //Platform platform6 = new Platform(width / 2.5, height / 1.5 - 200, 50, 50.0, this);
-    //Door door1 = new Door(width/2, height/2, this);
-    //Key key1 = new Key(width/2, height/3, this);
-    //mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
-   // mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
-   // mvPlatform3 = new Moving_Platform(0, height, 3, this);
+    bullying1 = new ArrayList<String>(Arrays.asList("images/bullying1.png"));
+    fallingImage = new ArrayList<String>(Arrays.asList("images/falling.png"));
+    
     this.testo = testo;
     System.out.println("Step 2 " + this.testo);
-    levelOne();
-    currentLevel = 1;
-    //testMovingPlatform();
-
     
+    currentLevel = 0;
+    startMenu();
+    
+    currentLevel = 1;
+    levelOne();
+    //testMovingPlatform();
+  }
+  
+  public void startMenu() { 
+    background = new Background(this, backgroundImage);
+    startButton = new Platform(width / 2, height / 2, 200, 200, this);
     
   }
   
