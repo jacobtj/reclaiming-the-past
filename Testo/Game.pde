@@ -193,7 +193,7 @@ class Game {
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/1.5 + 1200, height/1.5, this, coreImage);
     
-    System.out.println("Step 3 " + this.testo);
+   // System.out.println("Step 3 " + this.testo);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 
     chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
     camera = new Camera(this);
@@ -218,7 +218,7 @@ class Game {
   }
   
   public void testMovingPlatform() { 
-    camera = new Camera(this);
+   /* camera = new Camera(this);
     background = new Background(this, backgroundImage);
     player = new Player(width / 2, height / 2, 30.0, 50.0, this, playerImage, testo); 
     chi = new Chi(width / 2, height / 2, player, this, chiImage, testo);
@@ -232,6 +232,6 @@ class Game {
 
     
     platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
-    mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);
+    mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);*/
   }
 }
