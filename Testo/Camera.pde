@@ -19,8 +19,11 @@ class Camera {
     for (GameObject object : objectList) {
       if (object.toString() != "Player") { 
         if (object.getX() + 400 < -range_max) { 
-          object.setX(object.getX() + 400 + range_max + width);
+          
+          if (! (object instanceof Background)) {
+            object.setX(object.getX() + 400 + range_max + width);
           object.getHitbox().update(object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
+          }
         }
       }
     }

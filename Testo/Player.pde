@@ -65,7 +65,7 @@ class Player extends GameObject {
     } 
     
 
-    for (Hitbox hitbox: game.getHitboxes()) {
+    for (Hitbox hitbox: hitboxList) {
       if (!(hitbox.getParent() instanceof Player)) {
         if (game.collision(this.hitbox, hitbox)) {
           if (hitbox.getParent() instanceof Key) {
