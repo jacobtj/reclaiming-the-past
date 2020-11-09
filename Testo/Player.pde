@@ -21,28 +21,21 @@ class Player extends GameObject {
   private float diff_y = 0;
   private int frame = 0;
   private int frameRate = 0;
-<<<<<<< HEAD
-  private int frameRateChi = 0;
-  ArrayList<Hitbox> hitboxList;
-  boolean constructChi = true;
-  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img) { 
-    super(x, y, w, h, new int[] {0, 255, 0}, game, img);
-    hitboxList = new ArrayList();
-=======
-  private ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   private SoundFile walking_sound;
   private PApplet testo;
-  
-  
-  public Player(float x, float y, Game game, PApplet testo) {
-    super(x, y, 20.0, 50.0, new int[] {0, 255, 0}, game, new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png")));
->>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
+  private int frameRateChi = 0;
+  ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
+  boolean constructChi = true;
+  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) { 
+    super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
+    this.testo = testo;
     for (Hitbox hitbox: game.getHitboxes()) {
       hitboxList.add(hitbox);
     }
-   walking_sound = new SoundFile(testo, "Sounds/footstep2.mp3");
-   walking_sound.amp(0.2);
+    System.out.println("Step 5 " + testo);
+    walking_sound = new SoundFile(testo, "Sounds/footstep2.mp3");
+    walking_sound.amp(0.2);
   }
   
   void update(float dt) {

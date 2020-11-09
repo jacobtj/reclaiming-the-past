@@ -27,26 +27,22 @@ class Game {
   private ArrayList<GameObject> allObjects;
   private boolean gameOver = false;
   private boolean levelComplete = false;
-<<<<<<< HEAD
   private ArrayList<String> playerImage;
   private ArrayList<String> chiImage;
   private ArrayList<String> backgroundImage;
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
-=======
   private PApplet testo;
->>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
   
   public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
-<<<<<<< HEAD
     playerImage = new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png"));
     chiImage = new ArrayList<String>(Arrays.asList("images/chi1.png", "images/chi2.png", "images/chi3.png", "images/chi4.png", "images/chi5.png", "images/chi6.png", "images/chi7.png", "images/chi8.png", "images/chi9.png", "images/chi10.png", "images/chi11.png", "images/chi12.png", "images/chi13.png", "images/chi14.png", "images/chi15.png"));
     backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png"));
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
-    levelOne();
+    
     //camera = new Camera(this);
     //player = new Player(width / 2, height / 2, this); 
     //platform = new Platform(width / 2, height / 1.3, 500.0, 500, this);
@@ -60,13 +56,12 @@ class Game {
     //mvPlatform = new Moving_Platform(width / 2, 0, 0, this);
    // mvPlatform2 = new Moving_Platform(width / 2 + 60, height, 4, this);
    // mvPlatform3 = new Moving_Platform(0, height, 3, this);
-  //  currentLevel = 1;
-  //  testMovingPlatform();
-=======
     this.testo = testo;
+    System.out.println("Step 2 " + this.testo);
+    levelOne();
     currentLevel = 1;
-    testMovingPlatform();
->>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
+    //testMovingPlatform();
+
     
     
   }
@@ -84,11 +79,11 @@ class Game {
   
   void update(float dt) {
     if (gameOver == false) {
-      if (currentLevel == 1) {
+      //if (currentLevel == 1) {
         camera.update(dt);
         player.update(dt);
       //  mvPlatform.update(dt);
-      }
+     // }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
     //  mvPlatform3.update(dt);
@@ -161,12 +156,8 @@ class Game {
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/1.5 + 30, height/1.5, this, coreImage);
     
-    
-<<<<<<< HEAD
-    player = new Player(width / 2, height / 2, 30, 50, this, playerImage); 
-=======
-    player = new Player(width / 2, height / 2, this, testo); 
->>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
+    System.out.println("Step 3 " + this.testo);
+    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 
     camera = new Camera(this);
   }
   
@@ -183,31 +174,23 @@ class Game {
     platform5 = new Platform(width / 1.5 + 400, height / 1.7, 200, 25.0, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/1, height/2.1, this, coreImage);
-    
-<<<<<<< HEAD
-    player = new Player(width / 2, height / 2, 30, 50, this, playerImage);
-=======
-    player = new Player(width / 2, height / 2, this, testo);
->>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
+    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo);
     camera = new Camera(this);
   }
   
   public void testMovingPlatform() { 
     camera = new Camera(this);
-<<<<<<< HEAD
     background = new Background(this, backgroundImage);
-    player = new Player(width / 2, height / 2, 30.0, 50.0, this, playerImage); 
-    chi = new Chi(width / 2, height / 2, player, this, chiImage);
+    player = new Player(width / 2, height / 2, 30.0, 50.0, this, playerImage, testo); 
+    chi = new Chi(width / 2, height / 2, player, this, chiImage, testo);
     platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
     platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
     Door door1 = new Door(width/0.75, height/1.5, this, portalImage);
     Key key1 = new Key(width/1, height/2.1, this, coreImage);
     mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, this);
   //  Lever lever1 = new Lever(width/1, height/1.8, mvPlatform, this);
-    player = new Player(width / 2, height / 2, 30, 50, this, playerImage); 
-=======
-    player = new Player(width / 2, height / 2, this, testo); 
->>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
+    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo); 
+
     
     platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
     mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);
