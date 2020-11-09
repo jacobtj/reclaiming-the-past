@@ -13,7 +13,9 @@ class Platform extends GameObject {
   }
   
   public void drawPlatform() {
-   // image(image, x, y, w, h);
+   for (PImage img : image) {
+     image(img, x, y - h / 2, w, h);
+   }
   }
   
   public String toString() {
