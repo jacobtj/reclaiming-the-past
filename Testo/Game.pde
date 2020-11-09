@@ -148,10 +148,10 @@ class Game {
   public void levelOne() { 
     
     background = new Background(this, backgroundImage);
-    platforma1 = new Platform(width / 4, height / 1.3, 400, 500, this);
-    platforma2 = new Platform(width / 4 + 400, height / 1.3, 400, 500, this);
-    platforma3 = new Platform(width / 4 + 800, height / 1.3, 400, 500, this);
-    platforma4 = new Platform(width / 4 + 1200, height / 1.3, 400, 500, this);
+    platforma1 = new Platform(width / 4, height / 1.3, 400, 100, this);
+    platforma2 = new Platform(width / 4 + 400, height / 1.3, 400, 100, this);
+    platforma3 = new Platform(width / 4 + 800, height / 1.3, 400, 100, this);
+    platforma4 = new Platform(width / 4 + 1200, height / 1.3, 400, 100, this);
     
     platformb1 = new Platform(width / 1.5, height / 1.7, 300, 25.0, this);
     platformb2 = new Platform(width / 1.5 + 300, height / 1.7, 300, 25.0, this);
@@ -171,9 +171,9 @@ class Game {
     //allObjects = new ArrayList<GameObject>();
      
     
-    platform = new Platform(width/4 + 200, height / 1.3, 500, 500, this);
-    platform2 = new Platform(width/4 + 600, height / 1.3, 300, 500, this);
-    platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 300, this);
+    platform = new Platform(width/4 + 200, height / 1.3, 500, 100, this);
+    platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
+    platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 100, this);
     
     platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
     platform5 = new Platform(width / 1.5 + 400, height / 1.7, 200, 25.0, this);
