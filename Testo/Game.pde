@@ -35,10 +35,13 @@ class Game {
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
   
-  private ArrayList<String> fallingImage;
-   private ArrayList<String> bullying1;
+  private PImage fall;
+  private PImage bull;
+  private PImage bull2;
+  private PImage end;
   
   private PApplet testo;
+  private int levelCompleteDelay = 0;
   
   public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
@@ -48,9 +51,11 @@ class Game {
     backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png")); //"images/background.png", "images/background.png"));
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
-    
-    bullying1 = new ArrayList<String>(Arrays.asList("images/bullying1.png"));
-    fallingImage = new ArrayList<String>(Arrays.asList("images/falling.png"));
+    bull = loadImage("images/bullying1.png");
+    bull2 = loadImage("images/bullying2.png");
+    end = loadImage("images/ending.png");
+
+    fall = loadImage("images/falling.png");
     
     this.testo = testo;
     System.out.println("Step 2 " + this.testo);
@@ -72,9 +77,13 @@ class Game {
     allHitboxes.clear();
     allObjects.clear();
     
+    
+    
     if (currentLevel == 2) {
       levelTwo();
-    } 
+    } else if(currentLevel == 3) {
+      image(end, 0, 0, width, height);
+    }
     levelComplete = false;
   }
   
@@ -84,6 +93,8 @@ class Game {
         camera.update(dt);
         player.update(dt);
         chi.update(dt);
+        
+        
       //  mvPlatform.update(dt);
      // }
      // mvPlatform.update(dt);
@@ -123,23 +134,47 @@ class Game {
       background.draw();
       for (int i = 0; i < allHitboxes.size(); i += 1) {
         if (allHitboxes.get(i).getInvisible() == false) { 
+          if (!levelComplete) {
           allHitboxes.get(i).draw();
+          }
         }
       }
     } else {
-      clear();
+      //clear();
+    }
+    
+    if (gameOver) {
+      image(fall, 0, 0, width, height);
+    }
+    
+    if (levelComplete) {
+      if (currentLevel == 1) {
+      image(bull, 0, 0, width, height);
+      } else if (currentLevel == 2) {
+        image(bull2, 0, 0, width, height);
+      } else if (currentLevel == 3) {
+        image(end, 0, 0, width, height);
+      }
+      levelCompleteDelay += 1;
+      if (levelCompleteDelay > 100) {
+        levelCompleteDelay = 0;
+        nextLevel();
+      }
+    //image(fall, 0, 0);
     }
    
   }
   
   public void gameOver() {
+    System.out.println("Game over");
     gameOver = true;
+    
   }
   
   public void levelComplete() {
     levelComplete = true;
     System.out.println("level is complete");
-    nextLevel();
+   // nextLevel();
     
   }
   
@@ -156,7 +191,7 @@ class Game {
     platformb2 = new Platform(width / 1.5 + 600, height / 1.7, 300, 25.0, this);
     
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
-    Key key1 = new Key(width/1.5 + 30, height/1.5, this, coreImage);
+    Key key1 = new Key(width/1.5 + 1200, height/1.5, this, coreImage);
     
     System.out.println("Step 3 " + this.testo);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 

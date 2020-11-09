@@ -44,6 +44,10 @@ class Player extends GameObject {
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
+   // System.out.println(y);
+    if (y >= height) {
+      game.gameOver();
+    }
     
     if (hasChi) {
       
@@ -63,6 +67,8 @@ class Player extends GameObject {
         isWalking = true;
       }
     } 
+    
+    
     
 
     for (Hitbox hitbox: hitboxList) {
