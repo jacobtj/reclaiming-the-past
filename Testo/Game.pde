@@ -143,7 +143,7 @@ class Game {
       //clear();
     }
     
-    if (gameOver) {
+    if (gameOver && !levelComplete) {
       image(fall, 0, 0, width, height);
     }
     
@@ -173,6 +173,7 @@ class Game {
   
   public void levelComplete() {
     levelComplete = true;
+    
     System.out.println("level is complete");
    // nextLevel();
     

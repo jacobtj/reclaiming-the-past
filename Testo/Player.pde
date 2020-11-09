@@ -24,6 +24,8 @@ class Player extends GameObject {
   private SoundFile walking_sound;
   private SoundFile jumping_sound;
   private SoundFile landing_sound;
+  private SoundFile core_sound;
+  private SoundFile portal_sound;
   private PApplet testo;
   private int frameRateChi = 0;
   private boolean landed = false;
@@ -43,6 +45,10 @@ class Player extends GameObject {
     jumping_sound.amp(0.2);
     landing_sound = new SoundFile(testo, "Sounds/landing.mp3");
     landing_sound.amp(0.1);
+    core_sound = new SoundFile(testo, "Sounds/memorycore.mp3");
+    core_sound.amp(0.07);
+    portal_sound = new SoundFile(testo, "Sounds/portal.mp3");
+    portal_sound.amp(0.07);
   }
   
   void update(float dt) {
@@ -83,11 +89,13 @@ class Player extends GameObject {
         if (game.collision(this.hitbox, hitbox)) {
           if (hitbox.getParent() instanceof Key) {
             this.hasKey = true;
+            core_sound.play();
             hitbox.setInvisible(true);
             System.out.println(hasKey);
           } 
           else if (hitbox.getParent() instanceof Door) { 
             if (hasKey == true) {
+              portal_sound.play();
               game.levelComplete();
             }
           } 
