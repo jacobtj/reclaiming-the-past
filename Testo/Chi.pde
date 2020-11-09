@@ -3,10 +3,16 @@ class Chi extends Player {
   private Player parent;
   private boolean jumping = false;
   private boolean pressed_down = false;
+<<<<<<< HEAD
  
   
   public Chi(float x, float y, Player parent, Game game, ArrayList<String> img) {
     super(x - 10, y, 10.0, 40.0, game, img);
+=======
+  private PApplet testo;
+  public Chi(float x, float y, MainPlayer parent, Game game, PApplet testo) {
+    super(x - 30, y, game, testo);
+>>>>>>> fceddfb5ff211aa7af2b370f0493d30262750b4e
     this.parent = parent;
   }
  
