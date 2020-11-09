@@ -22,8 +22,11 @@ class Player extends GameObject {
   private int frame = 0;
   private int frameRate = 0;
   private SoundFile walking_sound;
+  private SoundFile jumping_sound;
+  private SoundFile landing_sound;
   private PApplet testo;
   private int frameRateChi = 0;
+  private boolean landed = false;
   ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   boolean constructChi = true;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) { 
@@ -36,6 +39,10 @@ class Player extends GameObject {
     System.out.println("Step 5 " + testo);
     walking_sound = new SoundFile(testo, "Sounds/footstep2.mp3");
     walking_sound.amp(0.2);
+    jumping_sound = new SoundFile(testo, "Sounds/jump.mp3");
+    jumping_sound.amp(0.2);
+    landing_sound = new SoundFile(testo, "Sounds/landing.mp3");
+    landing_sound.amp(0.1);
   }
   
   void update(float dt) {
@@ -94,6 +101,10 @@ class Player extends GameObject {
             this.setY(hitbox.getY() + diff_y);
           }
           else {
+            if (!landed && !(this instanceof Chi)) {
+              landing_sound.play();
+            }
+            landed = true;
             touches = true;
             // gravity(dt);
             String o = whichOrientation(this.hitbox, hitbox);
@@ -103,6 +114,7 @@ class Player extends GameObject {
         }
       }
     if (!touches) {
+      landed = false;
       justLanded = false;
       xvelo = 200.0;
       accely = accely_scale;
@@ -182,6 +194,7 @@ class Player extends GameObject {
       ready_to_jump = true;
       y = object.getY() - h;
       if (isKeyDown('w') && hasChi) {
+        jumping_sound.play();
         accely = accely_scale;
         jumping = true;
       }
@@ -236,7 +249,7 @@ class Player extends GameObject {
     if (isWalking || !(this instanceof Chi)) { 
       frameRate += 1;
       if (frameRate >= 10) {
-        if (!walking_sound.isPlaying()) {
+        if (!walking_sound.isPlaying() && !(this instanceof Chi)) {
           if (touches) {
             walking_sound.play();
           }
