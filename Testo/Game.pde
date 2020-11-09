@@ -65,8 +65,6 @@ class Game {
   
   public void startMenu() { 
     background = new Background(this, backgroundImage);
-    startButton = new Platform(width / 2, height / 2, 200, 200, this);
-    
   }
   
   public void nextLevel() { 
