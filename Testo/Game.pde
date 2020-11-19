@@ -42,6 +42,7 @@ class Game {
   
   private PApplet testo;
   private int levelCompleteDelay = 0;
+  private boolean won = false;
   
   public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
@@ -58,13 +59,13 @@ class Game {
     fall = loadImage("images/falling.png");
     
     this.testo = testo;
-    System.out.println("Step 2 " + this.testo);
+   // System.out.println("Step 2 " + this.testo);
     
     currentLevel = 0;
     startMenu();
     
     currentLevel = 1;
-    levelOne();
+    levelZero();
     //testMovingPlatform();
   }
   
@@ -82,16 +83,19 @@ class Game {
     if (currentLevel == 2) {
       levelTwo();
     } else if(currentLevel == 3) {
-      image(end, 0, 0, width, height);
+      won = true;
+      //image(end, 0, 0, width, height);
     }
     levelComplete = false;
   }
   
   void update(float dt) {
-    if (gameOver == false) {
+    if (gameOver == false && !levelComplete && !won) {
       //if (currentLevel == 1) {
         camera.update(dt);
-        player.update(dt);
+        if (player != null) {
+          player.update(dt);
+        }
         chi.update(dt);
         
         
@@ -122,7 +126,7 @@ class Game {
   public boolean collision(Hitbox box1, Hitbox box2) {
     boolean inX = box1.getX() + box1.getWidth() >= box2.getX() && box1.getX() <= box2.getX() + box2.getWidth();
     boolean inY = box1.getY() + box1.getHeight() >= box2.getY() && box1.getY() <= box2.getY() + box2.getHeight();
-    if (inX && inY) {
+    if (inX && inY && box1.isActive() && box2.isActive()) {
       return true;
     } else {
       return false;
@@ -153,7 +157,7 @@ class Game {
       } else if (currentLevel == 2) {
         image(bull2, 0, 0, width, height);
       } else if (currentLevel == 3) {
-        image(end, 0, 0, width, height);
+        //image(end, 0, 0, width, height);
       }
       levelCompleteDelay += 1;
       if (levelCompleteDelay > 100) {
@@ -161,6 +165,9 @@ class Game {
         nextLevel();
       }
     //image(fall, 0, 0);
+    }
+    if (won) {
+      image(end, 0, 0, width, height);
     }
    
   }
@@ -172,11 +179,25 @@ class Game {
   }
   
   public void levelComplete() {
+    for (int i = 0; i < allHitboxes.size(); i += 1) {
+      allHitboxes.get(i).setActive(false);
+    }
+    player = null;
     levelComplete = true;
     
     System.out.println("level is complete");
    // nextLevel();
     
+  }
+  
+  public void levelZero() {
+    new Platform(width / 4, height / 2.5, 2000, 1000, this);
+    new Platform(width / 1.5, height / 4, 200, 100, this);
+    new Platform(width, height / 4, 200, 1000, this);
+    //platforma1 = new Platform(20, height / 20, 600, 1000, this);
+    player = new Player(width / 2, height / 3, 30, 50, this, playerImage, this.testo); 
+    chi = new Chi(width / 2, height / 3, player, this, chiImage, this.testo); 
+    camera = new Camera(this);
   }
   
   public void levelOne() { 

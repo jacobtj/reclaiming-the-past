@@ -38,7 +38,7 @@ class Player extends GameObject {
     for (Hitbox hitbox: game.getHitboxes()) {
       hitboxList.add(hitbox);
     }
-    System.out.println("Step 5 " + testo);
+   // System.out.println("Step 5 " + testo);
     walking_sound = new SoundFile(testo, "Sounds/footstep2.mp3");
     walking_sound.amp(0.2);
     jumping_sound = new SoundFile(testo, "Sounds/jump.mp3");
@@ -91,6 +91,7 @@ class Player extends GameObject {
             this.hasKey = true;
             core_sound.play();
             hitbox.setInvisible(true);
+            hitbox.setActive(false);
             System.out.println(hasKey);
           } 
           else if (hitbox.getParent() instanceof Door) { 

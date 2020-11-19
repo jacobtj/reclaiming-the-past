@@ -21,7 +21,7 @@ class Camera {
         if (object.getX() + 400 < -range_max) { 
           
           if (! (object instanceof Background)) {
-            object.setX(object.getX() + 400 + range_max + width);
+          //  object.setX(object.getX() + 400 + range_max + width);
           object.getHitbox().update(object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
           }
         }

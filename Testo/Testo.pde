@@ -5,7 +5,7 @@ HashMap<Integer, Boolean> inputMap;
 
 void setup() {
   size(1280, 720);
-  System.out.println("Step 1 " + this);
+  //System.out.println("Step 1 " + this);
   game = new Game(this);
   previousFrameTime = millis();
   inputMap = new HashMap();
