@@ -9,16 +9,16 @@ class Door extends GameObject {
   
   //let the player pass through the door if they have KEY
   void open(float dt) {
-    super.update(dt);
+    super.update();
   }
   
   public String toString() {
     return "Door";
   }
   
-    void draw() {
+    void draw(float hx, float hy, float hw, float hh) {
    // this.image.get(0).resize(40, 0);
-    image(this.image.get(0), x, y, w, h);
+    image(this.image.get(0), hx, y, w, h);
   }
   
 }

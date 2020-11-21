@@ -102,26 +102,32 @@ class Platform extends GameObject {
     setY(y + h / sink_depth);
     
     if (h < ref_height) {
-      setWidth(w * (h / ref_height));
-      setX(x + (sprite_width - w * (h / ref_height)) / 2);
+      if (w <= ref_width) {
+       // setWidth(w * (h / ref_height));
+       // setX(x + (sprite_width - w * (h / ref_height)) / 2);
+      } else {
+       // setWidth(w * (h / ref_height));
+       // setX(x + (sprite_width - w * (h / ref_height)) / 2);
+      }
     }
+    //if ((h < ref_height && w <= ref_width) || h >= ref_height) {
     setX(getX() + (ref_width / left_cut) / 2);
     setWidth(getWidth() - ref_width / left_cut);
-    
+    //}
     
     dif_x = getX() - sprite_x;
     dif_y = getY() - sprite_y;
     
-    getHitbox().update(getX(), getY(), getWidth(), getHeight());
+   // getHitbox().update(getX(), getY(), getWidth(), getHeight());
   }
   
   //update the position of the platform over time (but only implemented for moving platform...)
   void update(float dt) {
-    super.update(dt);
+    super.update();
   }
   
-  public void drawPlatform() {
-    image(new_image, x - dif_x, y - dif_y, sprite_width, sprite_height);
+  public void drawPlatform(float hx, float hy, float hw, float hh) {
+    image(new_image, hx - dif_x, y - dif_y, sprite_width, sprite_height);
   }
   
   public String toString() {

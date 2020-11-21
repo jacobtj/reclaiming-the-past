@@ -11,9 +11,9 @@ class Key extends GameObject {
     return "Key";
   }
   
-  void draw() {
+  void draw(float hx, float hy, float hw, float hh) {
   //  this.image.get(0).resize(17, 0);
-    image(this.image.get(0), x, y, w, h);   
+    image(this.image.get(0), hx, y, w, h);   
   }
   
 }

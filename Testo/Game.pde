@@ -43,6 +43,7 @@ class Game {
   private PApplet testo;
   private int levelCompleteDelay = 0;
   private boolean won = false;
+  private float level_size;
   
   public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
@@ -65,7 +66,7 @@ class Game {
     startMenu();
     
     currentLevel = 1;
-    levelZero();
+    levelOne();
     //testMovingPlatform();
   }
   
@@ -190,53 +191,60 @@ class Game {
     
   }
   
+  public float getLevelSize() {
+    return level_size;
+  }
+  
   public void levelZero() {
+    level_size = 400;
     new Platform(width / 4, height / 2.5, 2000, 1000, this);
     new Platform(width / 1.5, height / 4, 200, 100, this);
     new Platform(width, height / 4, 200, 1000, this);
     //platforma1 = new Platform(20, height / 20, 600, 1000, this);
     player = new Player(width / 2, height / 3, 30, 50, this, playerImage, this.testo); 
     chi = new Chi(width / 2, height / 3, player, this, chiImage, this.testo); 
-    camera = new Camera(this);
+    camera = new Camera(this, level_size);
   }
   
   public void levelOne() { 
     
+    level_size = 1700 + width / 8;
     background = new Background(this, backgroundImage);
-    platforma1 = new Platform(width / 4, height / 1.3, 400, 100, this);
-    platforma2 = new Platform(width / 4 + 400, height / 1.3, 400, 100, this);
-    platforma3 = new Platform(width / 4 + 800, height / 1.3, 400, 100, this);
-    platforma4 = new Platform(width / 4 + 1200, height / 1.3, 400, 100, this);
+    platforma1 = new Platform(width / 8, height / 1.3, 1700, 1000, this);
+   // platforma2 = new Platform(width / 4 + 400, height / 1.3, 500, 1000, this);
+   // platforma3 = new Platform(width / 4 + 800, height / 1.3, 500, 1000, this);
+   // platforma4 = new Platform(width / 4 + 1200, height / 1.3, 400, 1000, this);
     
-    platformb1 = new Platform(width / 1.5, height / 1.7, 300, 25.0, this);
-    platformb2 = new Platform(width / 1.5 + 300, height / 1.7, 300, 25.0, this);
-    platformb2 = new Platform(width / 1.5 + 600, height / 1.7, 300, 25.0, this);
+    platformb1 = new Platform(width / 1.5, height / 1.7, 900, 100.0, this);
+   // platformb2 = new Platform(width / 1.5 + 300, height / 1.7, 300, 100.0, this);
+   // platformb2 = new Platform(width / 1.5 + 600, height / 1.7, 300, 100.0, this);
     
-    Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
-    Key key1 = new Key(width/1.5 + 1200, height/1.5, this, coreImage);
+    Door door1 = new Door(width/1.3, height/1.4, this, portalImage);
+    Key key1 = new Key(width/1.5 + 700, height/3, this, coreImage);
     
    // System.out.println("Step 3 " + this.testo);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 
     chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
-    camera = new Camera(this);
+    camera = new Camera(this, level_size);
   }
   
   public void levelTwo() {
     //allHitboxes = new ArrayList<Hitbox>();
     //allObjects = new ArrayList<GameObject>();
      
+    level_size = width/4 + 200 + 1000 + 50 + 500;
     
-    platform = new Platform(width/4 + 200, height / 1.3, 500, 100, this);
-    platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
-    platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 100, this);
+    platform = new Platform(50, height / 1.3, width/4 + 200 + 1000 + 50 - 100, 1000, this);
+   // platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
+   // platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 100, this);
     
-    platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
-    platform5 = new Platform(width / 1.5 + 400, height / 1.7, 200, 25.0, this);
+  //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
+    platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
-    Key key1 = new Key(width/1, height/2.1, this, coreImage);
+    Key key1 = new Key(width/4 + 200 + 1000 + 50 + 250, height / 1.7 - 50, this, coreImage);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo);
     chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
-    camera = new Camera(this);
+    camera = new Camera(this, level_size);
   }
   
   public void testMovingPlatform() { 

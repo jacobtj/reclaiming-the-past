@@ -21,7 +21,7 @@ class Hitbox {
     this.game.addHitbox(this);
   }
   
-  public Object getParent() {
+  public GameObject getParent() {
     return parent;
   }
   
@@ -54,16 +54,16 @@ class Hitbox {
     fill(colors[0], colors[1], colors[2]);
     
     if (!(parent instanceof Key)) {
-    //  rect(x, y, w, h);
+      //rect(x, y, w, h);
     }
     if (parent instanceof Platform) {
-      ((Platform) parent).drawPlatform();
+      ((Platform) parent).drawPlatform(x, y, w, h);
     } if (parent instanceof Player) {
       ((Player) parent).draw();
     } if (parent instanceof Key) {
-      ((Key) parent).draw();
+      ((Key) parent).draw(x, y, w, h);
     } if (parent instanceof Door) {
-      ((Door) parent).draw();
+      ((Door) parent).draw(x, y, w, h);
     }
     
   }

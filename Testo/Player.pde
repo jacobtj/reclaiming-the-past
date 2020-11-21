@@ -85,49 +85,52 @@ class Player extends GameObject {
     
 
     for (Hitbox hitbox: hitboxList) {
-      if (!(hitbox.getParent() instanceof Player)) {
-        if (game.collision(this.hitbox, hitbox)) {
-          if (hitbox.getParent() instanceof Key) {
-            this.hasKey = true;
-            core_sound.play();
-            hitbox.setInvisible(true);
-            hitbox.setActive(false);
-            System.out.println(hasKey);
-          } 
-          else if (hitbox.getParent() instanceof Door) { 
-            if (hasKey == true) {
-              portal_sound.play();
-              game.levelComplete();
+      for (int i = 0; i < this.hitbox.length; i += 1) {
+        if (this.hitbox[i] == null) continue;
+        if (!(hitbox.getParent() instanceof Player)) {
+          if (game.collision(this.hitbox[i], hitbox)) {
+            if (hitbox.getParent() instanceof Key) {
+              this.hasKey = true;
+              core_sound.play();
+              hitbox.getParent().setInvisible(true);
+              hitbox.getParent().setActive(false);
+              System.out.println(hasKey);
+            } 
+            else if (hitbox.getParent() instanceof Door) { 
+              if (hasKey == true) {
+                portal_sound.play();
+                game.levelComplete();
+              }
+            } 
+            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") {   
+              touches = true;
+              String o = whichOrientation(this.hitbox[i], hitbox);
+              stopPlayer(o, dt, hitbox);
+              if (justLanded == false || isWalking) {
+                float curr_x = this.getX();
+                float curr_y = this.getY();
+                diff_x = curr_x - hitbox.getX();
+                diff_y = curr_y - hitbox.getY();
+              }
+              justLanded = true;
+              // System.out.println(justLanded);
+              this.setX(hitbox.getX() + diff_x);
+              this.setY(hitbox.getY() + diff_y);
             }
-          } 
-          else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox, hitbox) == "top") {   
-            touches = true;
-            String o = whichOrientation(this.hitbox, hitbox);
-            stopPlayer(o, dt, hitbox);
-            if (justLanded == false || isWalking) {
-              float curr_x = this.getX();
-              float curr_y = this.getY();
-              diff_x = curr_x - hitbox.getX();
-              diff_y = curr_y - hitbox.getY();
+            else {
+              if (!landed && !(this instanceof Chi)) {
+                landing_sound.play();
+              }
+              landed = true;
+              touches = true;
+              // gravity(dt);
+              String o = whichOrientation(this.hitbox[i], hitbox);
+              stopPlayer(o, dt, hitbox);
             }
-            justLanded = true;
-            // System.out.println(justLanded);
-            this.setX(hitbox.getX() + diff_x);
-            this.setY(hitbox.getY() + diff_y);
           }
-          else {
-            if (!landed && !(this instanceof Chi)) {
-              landing_sound.play();
-            }
-            landed = true;
-            touches = true;
-            // gravity(dt);
-            String o = whichOrientation(this.hitbox, hitbox);
-            stopPlayer(o, dt, hitbox);
           }
-        }
-        }
       }
+    }
     if (!touches) {
       landed = false;
       justLanded = false;
@@ -154,7 +157,7 @@ class Player extends GameObject {
     chiTime = 0;
     }
     gravity(dt);
-    super.update(dt);
+    super.update();
   }
 
   

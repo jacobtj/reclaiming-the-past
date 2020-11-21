@@ -5,8 +5,10 @@ class GameObject {
   protected float h;
   protected int[] colors;
   protected Game game;
-  protected Hitbox hitbox;
+  protected Hitbox[] hitbox = new Hitbox[2];
   protected ArrayList<PImage> image;
+  private float offset1 = 0;
+  private float offset2 = 0;
   
   public GameObject(float x, float y, float w, float h, int[] colors, Game game, ArrayList<String> img) {
     this.image = new ArrayList<PImage>();
@@ -20,15 +22,45 @@ class GameObject {
       this.image.add(loadImage(image));
     }
     
+    System.out.println(this.game.getLevelSize());
     if (! (this instanceof Background)) {
-      this.hitbox = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
+      this.hitbox[0] = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
+      if (!(this instanceof Player)) {
+        this.hitbox[1] = new Hitbox(this.x + this.game.getLevelSize(), this.y, this.w, this.h, this.colors, this.game, this);
+      }
     }
     
     this.game.addObject(this);
   }
   
-  public void update(float dt) {
-    hitbox.update(x, y, w, h, colors);
+  public void setOffset1(float offset) {
+    this.offset1 = offset;
+  }
+  public float getOffset1() {
+    return offset1;
+  }
+  public void setOffset2(float offset) {
+    this.offset2 = offset;
+  }
+  public float getOffset2() {
+    return offset2;
+  }
+  public void setActive(boolean active) {
+    for (int i = 0; i < hitbox.length; i += 1) {
+      hitbox[i].setActive(active);
+    }
+  }
+  public void setInvisible(boolean invisible) {
+    for (int i = 0; i < hitbox.length; i += 1) {
+      hitbox[i].setInvisible(invisible);
+    }
+  }
+  
+  public void update() {
+    hitbox[0].update(x + offset1, y, w, h, colors);
+    if (!(this instanceof Player)) {
+      hitbox[1].update(x + this.game.getLevelSize() + offset2, y, w, h, colors);
+    }
   }
   
   public float getX() {
@@ -58,7 +90,7 @@ class GameObject {
   public int[] getColor() {
     return colors;
   }
-  public Hitbox getHitbox() {
+  public Hitbox[] getHitbox() {
     return hitbox;
   }
 }
