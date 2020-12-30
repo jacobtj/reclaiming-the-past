@@ -10,6 +10,7 @@ class Player extends GameObject {
   private float yvelo = 11.0;           //jumping speed
   private float time = 0;
   public float chiTime = 0;
+  private float stoppingDistance = 0;
   private boolean touches = false;
   private boolean jumping = false;
   private boolean ready_to_jump = false;
@@ -52,6 +53,9 @@ class Player extends GameObject {
   }
   
   void update(float dt) {
+    if (!(this instanceof Chi)) {
+      System.out.println(hasChi); 
+    }  
     isWalking = false;
     walkingLeft = false;
     chiTime += 1;
@@ -168,6 +172,7 @@ class Player extends GameObject {
   public void stopSelf(boolean detached) {
     if (detached) {
       hasChi = false;
+      
     } else {
       hasChi = true;
     }
@@ -253,6 +258,10 @@ class Player extends GameObject {
   
   public String toString() {
     return "Player";
+  }
+  
+  public boolean getHasChi() {
+    return hasChi;
   }
   
   void draw() {

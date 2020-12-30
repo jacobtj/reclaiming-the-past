@@ -32,11 +32,11 @@ class Chi extends Player {
       chiTime = 0;
       }
       if (isKeyDown('q') && !detached && !pressed_down) {
-         //System.out.println("DE");
+         System.out.println("DE");
         pressed_down = true;
         detach();
       } else if (isKeyDown('q') && detached && !pressed_down) {
-        //System.out.println("ATTACT");
+        System.out.println("ATTACT");
         pressed_down = true;
         reattach();
       }

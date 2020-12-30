@@ -19,7 +19,7 @@ class Camera {
     dist += speed;
     if (dist >= range_max) {
       for (GameObject object : objectList) {
-        if (object.toString() != "Player") { 
+        if (object.toString() != "Player" || (object instanceof Player && !((Player) object).getHasChi())) { 
           if (! (object instanceof Background)) {
             if (first_round) {
               object.setOffset1(object.getOffset1() + range_max * 2);
@@ -56,7 +56,7 @@ class Camera {
     }*/
     
     for (GameObject object : objectList) {
-      if (object.toString() != "Player") {
+      if (object.toString() != "Player" || (object instanceof Player && !((Player) object).getHasChi())) {
         object.setX(object.getX() - speed);
         if (! (object instanceof Background)) {
           for (int i = 0; i < object.getHitbox().length; i += 1) {
