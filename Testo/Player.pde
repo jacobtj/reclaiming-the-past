@@ -105,7 +105,10 @@ class Player extends GameObject {
                 portal_sound.play();
                 game.levelComplete();
               }
-            } 
+            }
+            else if (hitbox.getParent() instanceof KeyBad) {
+              game.gameOver();
+            }
             else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") {   
               touches = true;
               String o = whichOrientation(this.hitbox[i], hitbox);
