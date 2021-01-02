@@ -56,6 +56,9 @@ class Chi extends Player {
      // update(dt);
     }
     
+   /* public String toString() {
+      return "Chi";
+    }*/
 
     
    

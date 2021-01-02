@@ -54,7 +54,7 @@ class Player extends GameObject {
   
   void update(float dt) {
     if (!(this instanceof Chi)) {
-      System.out.println(hasChi); 
+      //System.out.println(hasChi); 
     }  
     isWalking = false;
     walkingLeft = false;
@@ -178,6 +178,12 @@ class Player extends GameObject {
       
     } else {
       hasChi = true;
+      if (game.getCamera() != null) {
+        if (!((getHitbox()[0].x >= 0 && getHitbox()[0].x + w < width)
+        || (getHitbox()[1].x >= 0 && getHitbox()[1].x + w < width))) {
+          game.getCamera().focusOn(this);
+        }
+      }
     }
     //gravity(dt);
     //super.update(dt);
@@ -226,17 +232,17 @@ class Player extends GameObject {
       }
     } if (orientation.equals("left")) {
       if (x <= 0) {
-        game.gameOver();
+        //game.gameOver();
       }
      // xvelo = 0;
-      x = object.getX() - w;
+     // x = object.getX() - w;
       if (isKeyDown('a')) {
         xvelo = 200;
       }
     } if (orientation.equals("right")) {
-      x = object.getX() + object.getWidth();
+     // x = object.getX() + object.getWidth();
       if (x + w >= width) {
-        game.gameOver();
+        //game.gameOver();
       }
       //xvelo = 0;
       if (isKeyDown('d')) {
@@ -267,7 +273,7 @@ class Player extends GameObject {
     return hasChi;
   }
   
-  void draw() {
+  void draw(float x, float y, float w, float h) {
     if (walkingLeft) {
       pushMatrix();
       scale(-1.0, 1.0);

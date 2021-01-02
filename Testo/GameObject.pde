@@ -25,9 +25,9 @@ class GameObject {
     System.out.println(this.game.getLevelSize());
     if (! (this instanceof Background)) {
       this.hitbox[0] = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
-      if (!(this instanceof Player)) {
+      //if (!(this instanceof Player)) {
         this.hitbox[1] = new Hitbox(this.x + this.game.getLevelSize(), this.y, this.w, this.h, this.colors, this.game, this);
-      }
+      //}
     }
     
     this.game.addObject(this);
@@ -58,9 +58,9 @@ class GameObject {
   
   public void update() {
     hitbox[0].update(x + offset1, y, w, h, colors);
-    if (!(this instanceof Player)) {
-      hitbox[1].update(x + this.game.getLevelSize() + offset2, y, w, h, colors);
-    }
+   // if (!(this instanceof Player)) {
+    hitbox[1].update(x + this.game.getLevelSize() + offset2, y, w, h, colors);
+   // }
   }
   
   public float getX() {

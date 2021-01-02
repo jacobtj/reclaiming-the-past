@@ -1,7 +1,7 @@
 class Camera {
   private Game game;
   private float dist = 0;
-  private float speed = 1;
+  private float speed = 3;
   private float range_max;
   private float range_min = 0;
   private boolean first_round = true;
@@ -15,8 +15,39 @@ class Camera {
     this.range_max = range;
   }
   
+  public void focusOn(GameObject center) {
+    System.out.println("Focus");
+    float dist_to_center = width / 2 - center.getHitbox()[0].getX() - center.getHitbox()[0].getWidth() / 2;
+    System.out.println(dist_to_center);
+    
+    dist -= dist_to_center;
+    if (!first_round) {
+      for (GameObject object : objectList) {
+        object.setOffset1(0);
+        object.setX(object.getX() + range_max + object.getOffset2() - dist_to_center);
+        object.setOffset2(0);
+      }
+    }
+    /*for (GameObject object : objectList) {
+      object.setOffset1(0);
+      object.setX(dist_to_center);
+      //object.setOffset1(object.getOffset1() + dist_to_center);
+      
+      object.setOffset2(range_max);
+      object.setOffset2(object.getOffset2() + dist_to_center);
+    }*/
+   // for (GameObject object : objectList) {
+      
+  //  }
+    //center.setX(0);
+    
+    first_round = true;
+    
+  }
+  
   public void update(float dt) {
     dist += speed;
+   // System.out.println(dist);
     if (dist >= range_max) {
       for (GameObject object : objectList) {
         if (object.toString() != "Player" || (object instanceof Player && !((Player) object).getHasChi())) { 
@@ -24,18 +55,15 @@ class Camera {
             if (first_round) {
               object.setOffset1(object.getOffset1() + range_max * 2);
               for (int i = 0; i < object.getHitbox().length; i += 1) {
-                object.update();//object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
+                object.update();
               }
+              System.out.println("First round done!");
             } else {
               object.setOffset2(object.getOffset2() + range_max * 2);
-              //object.setX(object.getX() + range_max * 2);
               for (int i = 0; i < object.getHitbox().length; i += 1) {
-                object.update();//object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
+                object.update();
               }
             }
-            //for (int i = 0; i < object.getHitbox().length; i += 1) {
-            //  object.getHitbox()[0].update(object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
-           // }
           }
         }
       }
@@ -56,6 +84,9 @@ class Camera {
     }*/
     
     for (GameObject object : objectList) {
+      if (object.toString() != "Player") {
+          //System.out.println(object.getX());
+        }
       if (object.toString() != "Player" || (object instanceof Player && !((Player) object).getHasChi())) {
         object.setX(object.getX() - speed);
         if (! (object instanceof Background)) {
@@ -65,7 +96,7 @@ class Camera {
         }
       } else {
         if (object.getX() <= 0) {
-          object.setX(0);
+          //object.setX(0);
         } else if(object.getX() + object.getWidth() >= width) {
           object.setX(width - object.getWidth());
         }

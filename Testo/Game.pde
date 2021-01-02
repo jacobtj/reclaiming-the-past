@@ -197,6 +197,10 @@ class Game {
     return level_size;
   }
   
+  public Camera getCamera() {
+    return camera;
+  }
+  
   public void levelZero() {
     level_size = 400;
     new Platform(width / 4, height / 2.5, 2000, 1000, this);
