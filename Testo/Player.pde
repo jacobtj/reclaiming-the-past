@@ -30,9 +30,10 @@ class Player extends GameObject {
   private PApplet testo;
   private int frameRateChi = 0;
   private boolean landed = false;
+  private boolean first_touch_after_deattach = false;
   ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   boolean constructChi = true;
-  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) { 
+  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
     this.testo = testo;
@@ -51,10 +52,10 @@ class Player extends GameObject {
     portal_sound = new SoundFile(testo, "Sounds/portal.mp3");
     portal_sound.amp(0.07);
   }
-  
+ 
   void update(float dt) {
     if (!(this instanceof Chi)) {
-      //System.out.println(hasChi); 
+      //System.out.println(hasChi);
     }  
     isWalking = false;
     walkingLeft = false;
@@ -65,9 +66,16 @@ class Player extends GameObject {
     if (y >= height) {
       game.gameOver();
     }
-    
+    if (hasChi && x < 0) {
+      x = 0;
+    }
+    if (x + w < 0) {
+      //System.out.println("NOW");
+      x += game.getLevelSize();
+    }
+   
     if (hasChi) {
-      
+     
       if (isKeyDown('w')) {
        // y -= accely * dt;
       }
@@ -83,10 +91,10 @@ class Player extends GameObject {
         x += xvelo * dt;
         isWalking = true;
       }
-    } 
-    
-    
-    
+    }
+   
+   
+   
 
     for (Hitbox hitbox: hitboxList) {
       for (int i = 0; i < this.hitbox.length; i += 1) {
@@ -99,8 +107,8 @@ class Player extends GameObject {
               hitbox.getParent().setInvisible(true);
               hitbox.getParent().setActive(false);
               System.out.println(hasKey);
-            } 
-            else if (hitbox.getParent() instanceof Door) { 
+            }
+            else if (hitbox.getParent() instanceof Door) {
               if (hasKey == true) {
                 portal_sound.play();
                 game.levelComplete();
@@ -109,7 +117,7 @@ class Player extends GameObject {
             else if (hitbox.getParent() instanceof KeyBad) {
               game.gameOver();
             }
-            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") {   
+            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") {  
               touches = true;
               String o = whichOrientation(this.hitbox[i], hitbox);
               stopPlayer(o, dt, hitbox);
@@ -146,7 +154,7 @@ class Player extends GameObject {
     }
     if (!ready_to_jump) {
       time += 1;
-    } 
+    }
     if (!hasChi) {
       if (this instanceof Player) {
        // System.out.println("MainPlayer stopped");
@@ -167,20 +175,21 @@ class Player extends GameObject {
     super.update();
   }
 
-  
+ 
   void pickup() {
     this.hasKey = true;
-  }   
-  
+  }  
+ 
   public void stopSelf(boolean detached) {
     if (detached) {
       hasChi = false;
-      
+     
     } else {
       hasChi = true;
+      first_touch_after_deattach = false;
       if (game.getCamera() != null) {
-        if (!((getHitbox()[0].x >= 0 && getHitbox()[0].x + w < width)
-        || (getHitbox()[1].x >= 0 && getHitbox()[1].x + w < width))) {
+        if (!((getHitbox()[0].x >= 0 && getHitbox()[0].x + w < width))) {
+       // || (getHitbox()[1].x >= 0 && getHitbox()[1].x + w < width))) {
           game.getCamera().focusOn(this);
         }
       }
@@ -188,18 +197,18 @@ class Player extends GameObject {
     //gravity(dt);
     //super.update(dt);
   }
-  
+ 
   private String whichOrientation(Hitbox box1, Hitbox box2) {
     //player on top
-    if (box1.getY() < box2.getY() && box1.getX() + box1.getWidth() >= box2.getX() 
+    if (box1.getY() < box2.getY() && box1.getX() + box1.getWidth() >= box2.getX()
     && box1.getX() <= box2.getX() + box2.getWidth()) {
       return "top";
     }
     //player on bottom
-    else if (box1.getY() + box1.getHeight() > box2.getY() + box2.getHeight() 
+    else if (box1.getY() + box1.getHeight() > box2.getY() + box2.getHeight()
     && box1.getX() >= box2.getX() && box1.getX() + box1.getWidth() <= box2.getX() + box2.getWidth()) {
-      return "bottom"; 
-    } 
+      return "bottom";
+    }
     //player on left
     else if (box1.getX() < box2.getX()) {
       return "left";
@@ -209,17 +218,22 @@ class Player extends GameObject {
       return "right";
     }
   }
-  
+ 
   private void gravity(float dt) {
-    if (accely / 2 * time < max_accel) {
-       y += accely / 2 * time;
-    } else {
-      y += max_accel;
+    if (!first_touch_after_deattach) {
+      if (accely / 2 * time < max_accel) {
+         y += accely / 2 * time;
+      } else {
+        y += max_accel;
+      }
     }
   }
-  
+ 
   private void stopPlayer(String orientation, float dt, Hitbox object) {
     if (orientation.equals("top")) {
+      if (!hasChi) {
+        first_touch_after_deattach = true;
+      }
       accely = 0;
       time = 0;
       jumping = false;
@@ -232,7 +246,7 @@ class Player extends GameObject {
       }
     } if (orientation.equals("left")) {
       if (x <= 0) {
-        //game.gameOver();
+       // game.gameOver();
       }
      // xvelo = 0;
      // x = object.getX() - w;
@@ -254,7 +268,7 @@ class Player extends GameObject {
       //System.out.println("YOU DIE.... (please try again! : ) )");
     }
   }
-  
+ 
   private void jump() {
     // This is the full formula, which is correct, but since you're doing += and not =, this is actually y = y - (yInitial - yvelo + (.5 * accely * dt)),
     //which isn't what we want. We could solve this 2 ways: One, only update y one time in this whole program, using the formula you wrote below but with = and not -=, or
@@ -263,16 +277,16 @@ class Player extends GameObject {
     //old way: y -= yInitial - yvelo + (.5 * accely * dt);
     y -= yvelo;
   }
-  
-  
+ 
+ 
   public String toString() {
     return "Player";
   }
-  
+ 
   public boolean getHasChi() {
     return hasChi;
   }
-  
+ 
   void draw(float x, float y, float w, float h) {
     if (walkingLeft) {
       pushMatrix();
@@ -282,7 +296,7 @@ class Player extends GameObject {
     } else {
       image(this.image.get(frame % this.image.size()), x, y, w, h);
     }
-    if (isWalking || !(this instanceof Chi)) { 
+    if (isWalking || !(this instanceof Chi)) {
       frameRate += 1;
       if (frameRate >= 10) {
         if (!walking_sound.isPlaying() && !(this instanceof Chi)) {
@@ -291,7 +305,11 @@ class Player extends GameObject {
           }
         }
         frameRate = 0;
-        frame += 1;
+        if (hasChi) {
+          frame += 1;
+        } else {
+         frame = 1; 
+        }
       }
     } if (this instanceof Chi) {
       frameRateChi += 1;
@@ -302,5 +320,3 @@ class Player extends GameObject {
     }
   }
 }
-  
-  
