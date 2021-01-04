@@ -66,8 +66,8 @@ class Game {
     startMenu();
     
     currentLevel = 1;
-    levelOne();
-    //testMovingPlatform();
+    //levelOne();
+    testMovingPlatform();
   }
   
   public void startMenu() { 
@@ -100,7 +100,7 @@ class Game {
         chi.update(dt);
         
         
-      //  mvPlatform.update(dt);
+        mvPlatform.update(dt);
      // }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
@@ -248,20 +248,18 @@ class Game {
   }
   
   public void testMovingPlatform() { 
-   /* camera = new Camera(this);
     background = new Background(this, backgroundImage);
-    player = new Player(width / 2, height / 2, 30.0, 50.0, this, playerImage, testo); 
-    chi = new Chi(width / 2, height / 2, player, this, chiImage, testo);
-    platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
-    platform4 = new Platform(width / 1.5, height / 1.7, 10000, 25.0, this);
-    Door door1 = new Door(width/0.75, height/1.5, this, portalImage);
-    Key key1 = new Key(width/1, height/2.1, this, coreImage);
-    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, this);
-  //  Lever lever1 = new Lever(width/1, height/1.8, mvPlatform, this);
-    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo); 
+    level_size = width/4 + 200 + 1000 + 50 + 500;
+    
+    platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
+    Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
+    Key key1 = new Key(width/2, height/2.1, this, coreImage);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 200.0, this);
+    Lever lever1 = new Lever(width/0.75, height/1.5, mvPlatform, this); 
 
     
-    platform = new Platform(width / 4, height / 1.3, 100000, 500, this);
-    mvPlatform = new Moving_Platform(width / 1.5, height / 1.7, 100, 20, 2, 100, this);*/
+    player = new Player(width / 1, height / 2, 30.0, 50.0, this, playerImage, testo); 
+    chi = new Chi(width / 1, height / 2, player, this, chiImage, testo);
+    camera = new Camera(this, level_size);
   }
 }
