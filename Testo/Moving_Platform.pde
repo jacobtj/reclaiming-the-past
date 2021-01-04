@@ -25,6 +25,7 @@ class Moving_Platform extends Platform {
     }
     if (direction == 0) {
       y += speed * dt;
+      System.out.println("moving");
     }
     if (direction == 1) {
       y += 0.5 * speed * dt;
