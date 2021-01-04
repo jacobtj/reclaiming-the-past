@@ -27,4 +27,5 @@ class Lever extends GameObject {
     return this.child;
   }
   
+  
 }

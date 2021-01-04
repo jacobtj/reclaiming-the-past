@@ -102,12 +102,11 @@ class Game {
         chi.update(dt);
         
         
-      //  mvPlatform.update(dt);
-     // }
+        mvPlatform.update(dt);
+      }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
-    //  mvPlatform3.update(dt);
-    } 
+     // mvPlatform3.update(dt);
   }
   
   public void addObject(GameObject object) {
@@ -227,8 +226,8 @@ class Game {
     
     Door door1 = new Door(width/1.3, height/1.4, this, portalImage);
     Key key1 = new Key(width/1.5 + 700, height/3, this, coreImage);
-    KeyBad key2 = new KeyBad(width/2, height/2 - 150, this, badCoreImage);
-    
+   // KeyBad key2 = new KeyBad(width/2, height/2 - 150, this, badCoreImage);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2 - 50, (float) 100, (float) 100, 4, 50.0, this);
    // System.out.println("Step 3 " + this.testo);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 
     chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
@@ -244,7 +243,7 @@ class Game {
     platform = new Platform(50, height / 1.3, width/4 + 200 + 1000 + 50 - 100, 1000, this);
    // platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
    // platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 100, this);
-    
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, this);
   //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
     platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
