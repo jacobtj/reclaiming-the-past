@@ -34,6 +34,7 @@ class Game {
   private ArrayList<String> backgroundImage;
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
+  private ArrayList<String> badCoreImage;
   
   private PImage fall;
   private PImage bull;
@@ -53,11 +54,12 @@ class Game {
     backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png")); //"images/background.png", "images/background.png"));
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
+    badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
     end = loadImage("images/ending.png");
-
     fall = loadImage("images/falling.png");
+    
     
     this.testo = testo;
    // System.out.println("Step 2 " + this.testo);
@@ -195,6 +197,10 @@ class Game {
     return level_size;
   }
   
+  public Camera getCamera() {
+    return camera;
+  }
+  
   public void levelZero() {
     level_size = 400;
     new Platform(width / 4, height / 2.5, 2000, 1000, this);
@@ -221,6 +227,7 @@ class Game {
     
     Door door1 = new Door(width/1.3, height/1.4, this, portalImage);
     Key key1 = new Key(width/1.5 + 700, height/3, this, coreImage);
+    KeyBad key2 = new KeyBad(width/2, height/2 - 150, this, badCoreImage);
     
    // System.out.println("Step 3 " + this.testo);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 

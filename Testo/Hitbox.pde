@@ -59,7 +59,7 @@ class Hitbox {
     if (parent instanceof Platform) {
       ((Platform) parent).drawPlatform(x, y, w, h);
     } if (parent instanceof Player) {
-      ((Player) parent).draw();
+      ((Player) parent).draw(x, y, w, h);
     } if (parent instanceof Key) {
       ((Key) parent).draw(x, y, w, h);
     } if (parent instanceof Door) {
