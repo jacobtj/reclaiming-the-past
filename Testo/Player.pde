@@ -33,7 +33,7 @@ class Player extends GameObject {
   private boolean first_touch_after_deattach = false;
   ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   boolean constructChi = true;
-  private GameObject platformToStickTo;
+  private Hitbox platformToStickTo;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
@@ -119,22 +119,8 @@ class Player extends GameObject {
               game.gameOver();
             }
             else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top" && !(this instanceof Chi)) {  
-              
+              platformToStickTo = hitbox;
               touches = true;
-              String o = whichOrientation(this.hitbox[i], hitbox);
-              stopPlayer(o, dt, hitbox);
-              if (justLanded == false || isWalking) {
-                //System.out.println("TELEPORT");
-                float curr_x = this.getX();
-                float curr_y = this.getY();
-                diff_x = curr_x - hitbox.getParent().getX();
-                diff_y = curr_y - hitbox.getParent().getY();
-                platformToStickTo = hitbox.getParent();
-               // System.out.println(diff_x);
-              }
-              justLanded = true;
-              this.setX(hitbox.getParent().getX() + diff_x);
-              this.setY(hitbox.getParent().getY() + diff_y);
             }
             else {
               if (!landed && !(this instanceof Chi)) {
@@ -150,8 +136,45 @@ class Player extends GameObject {
           }
       }
     }
-    if (platformToStickTo != null) {
-      if (this.getX() 
+    boolean do_it = false;
+    if (!(this instanceof Chi)) {
+      //System.out.println(platformToStickTo);
+    }
+    if (platformToStickTo != null && !(this instanceof Chi)) {
+      //System.out.println("Jumping " + jumping);
+      //System.out.println("Touches " + touches);
+      boolean still_stuck = false;
+      for (int i = 0; i < this.hitbox.length; i += 1) {
+        if (this.hitbox[i] == null) continue;
+        if (this.game.xCollision(this.hitbox[i], platformToStickTo) && (touches || !jumping)) {
+          //System.out.println("Starto");
+          still_stuck = true;
+          touches = true;
+          String o = whichOrientation(this.hitbox[i], platformToStickTo);
+          stopPlayer(o, dt, platformToStickTo);
+          if (justLanded == false || isWalking) {
+            //System.out.println("TELEPORT");
+            float curr_x = this.getX();
+            float curr_y = this.getY();
+            diff_x = curr_x - platformToStickTo.getParent().getX();
+            diff_y = curr_y - platformToStickTo.getParent().getY();
+            
+           // System.out.println(diff_x);
+          }
+          justLanded = true;
+          do_it = true;
+          this.setX(platformToStickTo.getParent().getX() + diff_x);
+          this.setY(platformToStickTo.getParent().getY() + diff_y);
+        }
+      }
+      if (still_stuck == false) {
+       // System.out.println("exit");
+        platformToStickTo = null;
+      }
+      
+    }
+    if (do_it == false){ 
+      //System.out.println("FALSE");
     }
     if (!touches) {
       landed = false;
