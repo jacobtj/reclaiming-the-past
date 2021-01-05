@@ -48,11 +48,13 @@ class Chi extends Player {
     void detach() {
       detached = true;
       parent.stopSelf(detached);
+      deattach = true;
      // super.update(dt);
     }
     void reattach() {
       detached = false;
       parent.stopSelf(detached);
+      deattach = false;
       x = parent.getX() - 20;
       y = parent.getY() + 10;
      // update(dt);

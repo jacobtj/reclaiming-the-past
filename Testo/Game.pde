@@ -271,11 +271,11 @@ class Game {
     background = new Background(this, backgroundImage);
     level_size = width/4 + 200 + 1000 + 50 + 500 + 10000;
     
-    platform4 = new Platform(0, height / 1.5, 2000, 250, this);
+    platform4 = new Platform(0, height / 1.2, 2000, 250, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/2, height/2.1, this, coreImage);
     mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 1000, (float) 1000, 2, 200.0, this);
-    Lever lever1 = new Lever(width/0.75, height/1.5, mvPlatform, this); 
+    //Lever lever1 = new Lever(width/0.75, height/1.5, mvPlatform, this); 
 
     
     player = new Player(width / 1.3, height / 3, 30.0, 50.0, this, playerImage, testo); 
