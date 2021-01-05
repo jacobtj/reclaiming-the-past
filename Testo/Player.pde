@@ -33,6 +33,7 @@ class Player extends GameObject {
   private boolean first_touch_after_deattach = false;
   ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   boolean constructChi = true;
+  private GameObject platformToStickTo;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
@@ -117,20 +118,23 @@ class Player extends GameObject {
             else if (hitbox.getParent() instanceof KeyBad) {
               game.gameOver();
             }
-            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") {  
+            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top" && !(this instanceof Chi)) {  
+              
               touches = true;
               String o = whichOrientation(this.hitbox[i], hitbox);
               stopPlayer(o, dt, hitbox);
               if (justLanded == false || isWalking) {
+                //System.out.println("TELEPORT");
                 float curr_x = this.getX();
                 float curr_y = this.getY();
-                diff_x = curr_x - hitbox.getX();
-                diff_y = curr_y - hitbox.getY();
+                diff_x = curr_x - hitbox.getParent().getX();
+                diff_y = curr_y - hitbox.getParent().getY();
+                platformToStickTo = hitbox.getParent();
+               // System.out.println(diff_x);
               }
               justLanded = true;
-              // System.out.println(justLanded);
-              this.setX(hitbox.getX() + diff_x);
-              this.setY(hitbox.getY() + diff_y);
+              this.setX(hitbox.getParent().getX() + diff_x);
+              this.setY(hitbox.getParent().getY() + diff_y);
             }
             else {
               if (!landed && !(this instanceof Chi)) {
@@ -145,6 +149,9 @@ class Player extends GameObject {
           }
           }
       }
+    }
+    if (platformToStickTo != null) {
+      if (this.getX() 
     }
     if (!touches) {
       landed = false;

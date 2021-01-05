@@ -101,8 +101,9 @@ class Game {
         }
         chi.update(dt);
         
-        
-        mvPlatform.update(dt);
+        if (mvPlatform != null) {
+          mvPlatform.update(dt);
+        }
      // }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
@@ -126,9 +127,19 @@ class Game {
     return allHitboxes;
   }
   
-  public boolean collision(Hitbox box1, Hitbox box2) {
+  public boolean xCollision(Hitbox box1, Hitbox box2) {
     boolean inX = box1.getX() + box1.getWidth() >= box2.getX() && box1.getX() <= box2.getX() + box2.getWidth();
+    return inX;
+  }
+  
+  public boolean yCollision(Hitbox box1, Hitbox box2) {
     boolean inY = box1.getY() + box1.getHeight() >= box2.getY() && box1.getY() <= box2.getY() + box2.getHeight();
+    return inY;
+  }
+  
+  public boolean collision(Hitbox box1, Hitbox box2) {
+    boolean inX = xCollision(box1, box2);
+    boolean inY = yCollision(box1, box2);
     if (inX && inY && box1.isActive() && box2.isActive()) {
       return true;
     } else {
@@ -256,12 +267,12 @@ class Game {
   
   public void testMovingPlatform() { 
     background = new Background(this, backgroundImage);
-    level_size = width/4 + 200 + 1000 + 50 + 500;
+    level_size = width/4 + 200 + 1000 + 50 + 500 + 10000;
     
-    platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
+    platform4 = new Platform(0, height / 1.5, 2000, 250, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/2, height/2.1, this, coreImage);
-    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 200.0, this);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 4, 200.0, this);
     Lever lever1 = new Lever(width/0.75, height/1.5, mvPlatform, this); 
 
     
