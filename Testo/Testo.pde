@@ -1,6 +1,7 @@
 Game game;
 float previousFrameTime;
 HashMap<Integer, Boolean> inputMap;
+boolean clicked = false;
 
 
 void setup() {
@@ -22,6 +23,7 @@ void draw() {
   clear();
   game.draw();
   
+  clicked = false;
 }
 
   boolean isKeyDown(char key) {
@@ -40,3 +42,10 @@ void draw() {
     char pressed = Character.toLowerCase(key);
     inputMap.put((int)pressed, false);
   }
+  
+  
+  void mouseClicked() {  
+    clicked = true;
+  }
+  
+  

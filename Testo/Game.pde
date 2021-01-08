@@ -4,6 +4,7 @@ class Game {
   Player player;
   Chi chi;
   int currentLevel;
+  Button button;
   
   Platform startButton;
   
@@ -32,6 +33,8 @@ class Game {
   private ArrayList<String> playerImage;
   private ArrayList<String> chiImage;
   private ArrayList<String> backgroundImage;
+  private ArrayList<String> menuImage;
+  
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
   private ArrayList<String> badCoreImage;
@@ -40,6 +43,7 @@ class Game {
   private PImage bull;
   private PImage bull2;
   private PImage end;
+  private PImage menu;
   
   private PApplet testo;
   private int levelCompleteDelay = 0;
@@ -52,13 +56,18 @@ class Game {
     playerImage = new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png"));
     chiImage = new ArrayList<String>(Arrays.asList("images/chi1.png", "images/chi2.png", "images/chi3.png", "images/chi4.png", "images/chi5.png", "images/chi6.png", "images/chi7.png", "images/chi8.png", "images/chi9.png", "images/chi10.png", "images/chi11.png", "images/chi12.png", "images/chi13.png", "images/chi14.png", "images/chi15.png"));
     backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png")); //"images/background.png", "images/background.png"));
+    menuImage = new ArrayList<String>(Arrays.asList("images/menu.jpg"));
+    
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
+    
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
     end = loadImage("images/ending.png");
     fall = loadImage("images/falling.png");
+    
+    menu = loadImage("images/menu.jpg");
     
     
     this.testo = testo;
@@ -67,21 +76,22 @@ class Game {
     currentLevel = 0;
     startMenu();
     
-    currentLevel = 1;
+    //currentLevel = 1;
+    
     //levelOne();
-    testMovingPlatform();
+    //testMovingPlatform();
   }
   
   public void startMenu() { 
-    background = new Background(this, backgroundImage);
+    background = new Background(this, menuImage);
+    button = new ButtonStart(width / 2 - 100, height / 2, 200, 50, this, new ArrayList<String>());
+    
   }
   
   public void nextLevel() { 
     currentLevel += 1;
     allHitboxes.clear();
     allObjects.clear();
-    
-    
     
     if (currentLevel == 2) {
       levelTwo();
@@ -95,14 +105,24 @@ class Game {
   void update(float dt) {
     if (gameOver == false && !levelComplete && !won) {
       //if (currentLevel == 1) {
-        camera.update(dt);
+        if (camera != null) {
+          camera.update(dt);
+        }
+    
         if (player != null) {
           player.update(dt);
         }
-        chi.update(dt);
+        
+        if (chi != null) {
+         chi.update(dt); 
+        }
+        
+        if (button != null) {
+          button.update(dt);
+        }
         
         
-        mvPlatform.update(dt);
+        //mvPlatform.update(dt);
      // }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
@@ -138,7 +158,9 @@ class Game {
   
   void draw() {
     if (gameOver == false) {
-      background.draw();
+      if (background != null) {
+        background.draw();
+      }
       for (int i = 0; i < allHitboxes.size(); i += 1) {
         if (allHitboxes.get(i).getInvisible() == false) { 
           if (!levelComplete) {
@@ -158,7 +180,7 @@ class Game {
       if (currentLevel == 1) {
       image(bull, 0, 0, width, height);
       } else if (currentLevel == 2) {
-        image(bull2, 0, 0, width, height);
+       image(bull2, 0, 0, width, height);
       } else if (currentLevel == 3) {
         //image(end, 0, 0, width, height);
       }
@@ -202,6 +224,7 @@ class Game {
   }
   
   public void levelZero() {
+    background = new Background(this, backgroundImage);
     level_size = 400;
     new Platform(width / 4, height / 2.5, 2000, 1000, this);
     new Platform(width / 1.5, height / 4, 200, 100, this);
@@ -238,7 +261,7 @@ class Game {
   public void levelTwo() {
     //allHitboxes = new ArrayList<Hitbox>();
     //allObjects = new ArrayList<GameObject>();
-     
+    background = new Background(this, backgroundImage);
     level_size = width/4 + 200 + 1000 + 50 + 500;
     
     platform = new Platform(50, height / 1.3, width/4 + 200 + 1000 + 50 - 100, 1000, this);
