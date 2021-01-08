@@ -68,8 +68,8 @@ class Game {
     startMenu();
     
     currentLevel = 1;
-    //levelOne();
-    testMovingPlatform();
+    levelOne();
+    //testMovingPlatform();
   }
   
   public void startMenu() { 
@@ -102,7 +102,7 @@ class Game {
         chi.update(dt);
         
         
-        mvPlatform.update(dt);
+     //   mvPlatform.update(dt);
       }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
@@ -226,10 +226,13 @@ class Game {
     
     Door door1 = new Door(width/1.3, height/1.4, this, portalImage);
     Key key1 = new Key(width/1.5 + 700, height/3, this, coreImage);
+    Key key2 = new Key(width/1.5 + 600, height/3, this, coreImage);
+    Key key3 = new Key(width/1.5 + 800, height/3, this, coreImage);
    // KeyBad key2 = new KeyBad(width/2, height/2 - 150, this, badCoreImage);
-    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2 - 50, (float) 100, (float) 100, 4, 50.0, this);
+    //mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2 - 50, (float) 100, (float) 100, 4, 50.0, this);
    // System.out.println("Step 3 " + this.testo);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, this.testo); 
+    player.setNumKeys(3);
     chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
     camera = new Camera(this, level_size);
   }
@@ -253,9 +256,9 @@ class Game {
     camera = new Camera(this, level_size);
   }
   
-  public void testMovingPlatform() { 
+ /** public void testMovingPlatform() { 
     background = new Background(this, backgroundImage);
-    level_size = width/4 + 200 + 1000 + 50 + 500;
+    level_size = width/4 + 200 + 1000 + 50 + 500 + 500;
     
     platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
@@ -267,5 +270,5 @@ class Game {
     player = new Player(width / 1, height / 2, 30.0, 50.0, this, playerImage, testo); 
     chi = new Chi(width / 1, height / 2, player, this, chiImage, testo);
     camera = new Camera(this, level_size);
-  }
+  } */
 }

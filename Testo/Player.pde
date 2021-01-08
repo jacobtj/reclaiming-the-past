@@ -2,7 +2,9 @@ import java.util.Arrays;
 import processing.sound.*;
 
 class Player extends GameObject {
-  private boolean hasKey = false;
+  private boolean hasAllKeys = false;
+  private int numCollectedKeys = 0;
+  private int numAllKeys = 1;
   private float accely_scale = 0.6;     //speed of falling
   private float accely = accely_scale;
   private float max_accel = 150;        //max accel of gravity (?)
@@ -35,7 +37,6 @@ class Player extends GameObject {
   boolean constructChi = true;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
-    this.hasKey = false;
     this.testo = testo;
     for (Hitbox hitbox: game.getHitboxes()) {
       hitboxList.add(hitbox);
@@ -53,6 +54,10 @@ class Player extends GameObject {
     portal_sound.amp(0.07);
   }
  
+  public void setNumKeys(int num) {
+    this.numAllKeys = num;
+    System.out.println(numAllKeys + "ALSKDJFALKSDJ");
+  }
   void update(float dt) {
     if (!(this instanceof Chi)) {
       //System.out.println(hasChi);
@@ -94,22 +99,20 @@ class Player extends GameObject {
     }
    
    
-   
-
     for (Hitbox hitbox: hitboxList) {
       for (int i = 0; i < this.hitbox.length; i += 1) {
         if (this.hitbox[i] == null) continue;
         if (!(hitbox.getParent() instanceof Player)) {
           if (game.collision(this.hitbox[i], hitbox)) {
             if (hitbox.getParent() instanceof Key) {
-              this.hasKey = true;
+              this.numCollectedKeys++;
               core_sound.play();
               hitbox.getParent().setInvisible(true);
               hitbox.getParent().setActive(false);
-              System.out.println(hasKey);
+              System.out.println(numCollectedKeys);
             }
             else if (hitbox.getParent() instanceof Door) {
-              if (hasKey == true) {
+              if (numCollectedKeys == numAllKeys) {
                 portal_sound.play();
                 game.levelComplete();
               }
@@ -121,17 +124,19 @@ class Player extends GameObject {
               touches = true;
               String o = whichOrientation(this.hitbox[i], hitbox);
               stopPlayer(o, dt, hitbox);
-              if (justLanded == false || isWalking) {
+            }
+             /** if (justLanded == false || isWalking) {
                 float curr_x = this.getX();
                 float curr_y = this.getY();
                 diff_x = curr_x - hitbox.getX();
                 diff_y = curr_y - hitbox.getY();
+                justLanded = true;
               }
-              justLanded = true;
               // System.out.println(justLanded);
-              this.setX(hitbox.getX() + diff_x);
-              this.setY(hitbox.getY() + diff_y);
-            }
+              this.setX(hitbox.getX());
+              //this.setX(hitbox.getX() + diff_x);
+              this.setY(hitbox.getY() - 50);
+            } */
             else {
               if (!landed && !(this instanceof Chi)) {
                 landing_sound.play();
@@ -174,11 +179,6 @@ class Player extends GameObject {
     gravity(dt);
     super.update();
   }
-
- 
-  void pickup() {
-    this.hasKey = true;
-  }  
  
   public void stopSelf(boolean detached) {
     if (detached) {
