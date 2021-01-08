@@ -66,6 +66,8 @@ class Hitbox {
       ((Door) parent).draw(x, y, w, h);
     } if (parent instanceof PPlate) {
       ((PPlate) parent).draw(x, y, w, h);
+    } if (parent instanceof Lever) {
+      ((Lever) parent).draw(x, y, w, h);
     }
   }
   

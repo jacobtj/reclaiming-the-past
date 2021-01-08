@@ -276,8 +276,8 @@ class Game {
     platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
     Key key1 = new Key(width/2, height/2.1, this, coreImage);
     mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
-    PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
-
+    //PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
+    Lever lever1 = new Lever(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage);
     
     player = new Player(width / 1.3, height / 3, 30.0, 50.0, this, playerImage, testo); 
     chi = new Chi(width / 1, height / 2, player, this, chiImage, testo);

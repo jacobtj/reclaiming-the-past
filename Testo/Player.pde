@@ -41,6 +41,7 @@ class Player extends GameObject {
   private float platform_x_now = 0;
   private float platform_x_before = 0;
   protected boolean deattach = false;
+  private boolean ePressed = false;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
@@ -60,7 +61,8 @@ class Player extends GameObject {
     portal_sound = new SoundFile(testo, "Sounds/portal.mp3");
     portal_sound.amp(0.07);
   }
- 
+  
+  
   void update(float dt) {
     if (!(this instanceof Chi)) {
       //System.out.println(hasChi);
@@ -98,8 +100,6 @@ class Player extends GameObject {
     }
    
    
-   
-
     for (Hitbox hitbox: hitboxList) {
       for (int i = 0; i < this.hitbox.length; i += 1) {
         if (this.hitbox[i] == null) continue;
@@ -109,6 +109,22 @@ class Player extends GameObject {
               ((Moving_Platform) ((PPlate) hitbox.getParent()).child).platform_start();
               on_plate = true;
               curr_plate = (PPlate) hitbox.getParent();
+            }
+            else if (hitbox.getParent() instanceof Lever) {
+              if (keyPressed && !(this instanceof Chi)) {
+                if (key == 'e' && ePressed == false) {
+                  ((Moving_Platform) ((Lever) hitbox.getParent()).child).platform_flip();
+                  System.out.print("moving?: " + ((Moving_Platform) ((Lever) hitbox.getParent()).child).status() + "\n");
+                  ePressed = true;
+                } 
+                else {
+                  System.out.print("not e");
+                  //ePressed = false;
+                }
+              } 
+              else {
+                ePressed = false;
+              }  
             }
             else if (hitbox.getParent() instanceof Key) {
               this.hasKey = true;
