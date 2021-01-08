@@ -22,7 +22,8 @@ class Camera {
  
   public void focusOn(GameObject center) {
    // System.out.println("Focus");
-    float dist_to_center = range_max - center.getX();
+    float offset = 50;
+    float dist_to_center = range_max - center.getX() + offset;
    // System.out.println(dist_to_center);
    // System.out.println(range_max - dist_to_center);
     //System.out.println(dist);
@@ -33,7 +34,7 @@ class Camera {
         if (!(object instanceof Background)) {
           object.setOffset1(0);
           if (object instanceof Player) {
-            object.setX(0);
+            object.setX(offset);
           } else {
             object.setX(object.getX() + range_max + object.getOffset2() + dist_to_center);
           }
@@ -45,7 +46,7 @@ class Camera {
       for (GameObject object : objectList) {
         if (!(object instanceof Background)) {
           if (object instanceof Player) {
-            object.setX(0);
+            object.setX(offset);
           } else {
             object.setX(object.getX() + object.getOffset1() + dist_to_center);
           }

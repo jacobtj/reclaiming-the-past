@@ -22,7 +22,6 @@ class GameObject {
       this.image.add(loadImage(image));
     }
     
-    System.out.println(this.game.getLevelSize());
     if (! (this instanceof Background)) {
       this.hitbox[0] = new Hitbox(this.x, this.y, this.w, this.h, this.colors, this.game, this);
       //if (!(this instanceof Player)) {

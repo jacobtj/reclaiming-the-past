@@ -5,6 +5,7 @@ class ButtonStart extends Button {
   }
   
   void action() { 
+    System.out.print("before nextlevel");
     game.nextLevel();
   }
 }

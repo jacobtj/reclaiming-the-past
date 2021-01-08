@@ -54,7 +54,7 @@ class Hitbox {
     fill(colors[0], colors[1], colors[2]);
     
     if (!(parent instanceof Key)) {
-      //rect(x, y, w, h);
+     // rect(x, y, w, h);
     }
     if (parent instanceof Platform) {
       ((Platform) parent).drawPlatform(x, y, w, h);
@@ -64,10 +64,11 @@ class Hitbox {
       ((Key) parent).draw(x, y, w, h);
     } if (parent instanceof Door) {
       ((Door) parent).draw(x, y, w, h);
-    }
-    
-    
-    if (parent instanceof Button) {
+    } if (parent instanceof PPlate) {
+      ((PPlate) parent).draw(x, y, w, h);
+    } if (parent instanceof Lever) {
+      ((Lever) parent).draw(x, y, w, h);
+    } if (parent instanceof Button) {
       //((Button) parent).draw(x, y, w, h);
       rect(x, y, w, h);
     }
