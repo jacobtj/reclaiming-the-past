@@ -66,7 +66,13 @@ class Hitbox {
       ((Door) parent).draw(x, y, w, h);
     } if (parent instanceof PPlate) {
       ((PPlate) parent).draw(x, y, w, h);
+    } if (parent instanceof Lever) {
+      ((Lever) parent).draw(x, y, w, h);
+    } if (parent instanceof Button) {
+      //((Button) parent).draw(x, y, w, h);
+      rect(x, y, w, h);
     }
+    
   }
   
   public void update(float x, float y, float w, float h, int[] colors) {

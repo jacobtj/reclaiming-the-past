@@ -44,6 +44,7 @@ class Player extends GameObject {
   private float platform_x_now = 0;
   private float platform_x_before = 0;
   protected boolean deattach = false;
+  private boolean ePressed = false;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.testo = testo;
@@ -67,6 +68,7 @@ class Player extends GameObject {
     this.numAllKeys = num;
     System.out.println(numAllKeys + "ALSKDJFALKSDJ");
   }
+
   void update(float dt) {
     if (!(this instanceof Chi)) {
       //System.out.println(hasChi);
@@ -119,6 +121,24 @@ class Player extends GameObject {
               ((MovingPlatform) ((PPlate) hitbox.getParent()).child).platform_start();
               on_plate = true;
               curr_plate = (PPlate) hitbox.getParent();
+            }
+            else if (hitbox.getParent() instanceof Lever) {
+              if (keyPressed && !(this instanceof Chi)) {
+                if (key == 'e' && ePressed == false) {
+                  ((Moving_Platform) ((Lever) hitbox.getParent()).child).platform_flip();
+                  ePressed = true;
+                } 
+              } 
+              else {
+                ePressed = false;
+              }  
+            }
+            else if (hitbox.getParent() instanceof Key) {
+              this.hasKey = true;
+              core_sound.play();
+              hitbox.getParent().setInvisible(true);
+              hitbox.getParent().setActive(false);
+              System.out.println(hasKey);
             }
             else if (hitbox.getParent() instanceof Door) {
               if (numCollectedKeys == numAllKeys) {

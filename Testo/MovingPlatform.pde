@@ -71,5 +71,11 @@ class MovingPlatform extends Platform {
     moving = true; 
   }
   
+  public void platform_flip() {
+    moving = !moving;
+  }
   
+  public boolean status() {
+    return moving;
+  }
 }
