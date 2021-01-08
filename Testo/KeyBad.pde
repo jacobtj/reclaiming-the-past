@@ -1,5 +1,4 @@
 class KeyBad extends GameObject {
-
   protected Hitbox hitbox;
   private Game game;
   

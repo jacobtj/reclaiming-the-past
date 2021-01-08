@@ -1,4 +1,4 @@
-class Moving_Platform extends Platform {
+class MovingPlatform extends Platform {
 
   
   private float speed = 200.0;
@@ -11,7 +11,7 @@ class Moving_Platform extends Platform {
 
   private Game game;
   
-  public Moving_Platform(float x, float y, float w, float h, int direction, float turnback, boolean moving, Game game) {
+  public MovingPlatform(float x, float y, float w, float h, int direction, float turnback, boolean moving, Game game) {
     super(x,y,w,h, game);
     this.direction = direction;
     this.turnback = turnback;

@@ -2,10 +2,10 @@ class PPlate extends GameObject {
 
   protected Hitbox hitbox; 
   private Game game;
-  protected Moving_Platform child;
+  protected MovingPlatform child;
   private boolean on;
   
-  public PPlate(float x, float y, Moving_Platform child, Game game, ArrayList<String> img) {
+  public PPlate(float x, float y, MovingPlatform child, Game game, ArrayList<String> img) {
     super(x, y, 100, 100, new int[] {200, 200, 255}, game, img);
     this.child = child;
     this.on = false;
@@ -15,7 +15,7 @@ class PPlate extends GameObject {
     return "PPlate";
   }
   
-  public Moving_Platform getChild() {
+  public MovingPlatform getChild() {
     return this.child;
   }
   

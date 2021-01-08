@@ -116,7 +116,7 @@ class Player extends GameObject {
               hitbox.getParent().setActive(false);
             }
             if (hitbox.getParent() instanceof PPlate) {
-              ((Moving_Platform) ((PPlate) hitbox.getParent()).child).platform_start();
+              ((MovingPlatform) ((PPlate) hitbox.getParent()).child).platform_start();
               on_plate = true;
               curr_plate = (PPlate) hitbox.getParent();
             }
@@ -129,7 +129,7 @@ class Player extends GameObject {
             else if (hitbox.getParent() instanceof KeyBad) {
               game.gameOver();
             }
-            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") { 
+            else if (hitbox.getParent() instanceof MovingPlatform && whichOrientation(this.hitbox[i], hitbox) == "top") { 
               if (platformToStickTo == null) {
                 platform_x_now = hitbox.getParent().getX();
                 platform_x_before = platform_x_now;
@@ -227,7 +227,7 @@ class Player extends GameObject {
     gravity(dt);
 
     if (curr_plate != null && !on_plate) {
-      ((Moving_Platform) curr_plate.child).platform_stop();
+      ((MovingPlatform) curr_plate.child).platform_stop();
     }
     
     if (y >= height) {
@@ -245,7 +245,6 @@ class Player extends GameObject {
     }
     
     super.update();
-    
   }
  
   public void stopSelf(boolean detached) {

@@ -20,9 +20,9 @@ class Game {
   Platform platform4;
   Platform platform5;
   
-  Moving_Platform mvPlatform;
-  Moving_Platform mvPlatform2;
-  Moving_Platform mvPlatform3;
+  MovingPlatform mvPlatform;
+  MovingPlatform mvPlatform2;
+  MovingPlatform mvPlatform3;
   Key memoryCore;
   Door portal;
   private ArrayList<Hitbox> allHitboxes;
@@ -266,7 +266,7 @@ class Game {
     platform = new Platform(50, height / 1.3, width/4 + 200 + 1000 + 50 - 100, 1000, this);
    // platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
    // platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 100, this);
-    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, true, this);
+    mvPlatform = new MovingPlatform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, true, this);
   //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
     platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);

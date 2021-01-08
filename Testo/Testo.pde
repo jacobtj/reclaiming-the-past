@@ -1,4 +1,5 @@
 Game game;
+LevelMaker levelMaker;
 float previousFrameTime;
 HashMap<Integer, Boolean> inputMap;
 
@@ -6,7 +7,8 @@ HashMap<Integer, Boolean> inputMap;
 void setup() {
   size(1280, 720);
   //System.out.println("Step 1 " + this);
-  game = new Game(this);
+  //game = new Game(this);
+  levelMaker = new LevelMaker();
   previousFrameTime = millis();
   inputMap = new HashMap();
   
@@ -18,9 +20,9 @@ void draw() {
   float deltaTime = currentFrameTime - previousFrameTime;
   deltaTime /= 1000.0;
   previousFrameTime = currentFrameTime;
-  game.update(deltaTime);
+  //game.update(deltaTime);
   clear();
-  game.draw();
+  //game.draw();
   
 }
 
