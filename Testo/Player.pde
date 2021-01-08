@@ -114,6 +114,7 @@ class Player extends GameObject {
               core_sound.play();
               hitbox.getParent().setInvisible(true);
               hitbox.getParent().setActive(false);
+            }
             if (hitbox.getParent() instanceof PPlate) {
               ((Moving_Platform) ((PPlate) hitbox.getParent()).child).platform_start();
               on_plate = true;
@@ -147,7 +148,7 @@ class Player extends GameObject {
               stopPlayer(o, dt, hitbox);
             }
           }
-          }
+        }
       }
     }
    // boolean do_it = false;
@@ -244,6 +245,7 @@ class Player extends GameObject {
     }
     
     super.update();
+    
   }
  
   public void stopSelf(boolean detached) {
