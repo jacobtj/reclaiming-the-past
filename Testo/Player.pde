@@ -126,13 +126,8 @@ class Player extends GameObject {
               if (keyPressed && !(this instanceof Chi)) {
                 if (key == 'e' && ePressed == false) {
                   ((Moving_Platform) ((Lever) hitbox.getParent()).child).platform_flip();
-                  System.out.print("moving?: " + ((Moving_Platform) ((Lever) hitbox.getParent()).child).status() + "\n");
                   ePressed = true;
                 } 
-                else {
-                  System.out.print("not e");
-                  //ePressed = false;
-                }
               } 
               else {
                 ePressed = false;
