@@ -2,6 +2,9 @@ import java.util.Arrays;
 import processing.sound.*;
 
 class Player extends GameObject {
+  private boolean hasAllKeys = false;
+  private int numCollectedKeys = 0;
+  private int numAllKeys = 1;
   private final float XSPEED = 200;
   private boolean hasKey = false;
   private float accely_scale = 0.6;     //speed of falling
@@ -44,7 +47,6 @@ class Player extends GameObject {
   private boolean ePressed = false;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
-    this.hasKey = false;
     this.testo = testo;
     for (Hitbox hitbox: game.getHitboxes()) {
       hitboxList.add(hitbox);
@@ -61,8 +63,12 @@ class Player extends GameObject {
     portal_sound = new SoundFile(testo, "Sounds/portal.mp3");
     portal_sound.amp(0.07);
   }
-  
-  
+ 
+  public void setNumKeys(int num) {
+    this.numAllKeys = num;
+    System.out.println(numAllKeys + "ALSKDJFALKSDJ");
+  }
+
   void update(float dt) {
     if (!(this instanceof Chi)) {
       //System.out.println(hasChi);
@@ -105,6 +111,12 @@ class Player extends GameObject {
         if (this.hitbox[i] == null) continue;
         if (!(hitbox.getParent() instanceof Player)) {
           if (game.collision(this.hitbox[i], hitbox)) {
+            if (hitbox.getParent() instanceof Key) {
+              this.numCollectedKeys++;
+              core_sound.play();
+              hitbox.getParent().setInvisible(true);
+              hitbox.getParent().setActive(false);
+            }
             if (hitbox.getParent() instanceof PPlate) {
               ((Moving_Platform) ((PPlate) hitbox.getParent()).child).platform_start();
               on_plate = true;
@@ -134,7 +146,7 @@ class Player extends GameObject {
               System.out.println(hasKey);
             }
             else if (hitbox.getParent() instanceof Door) {
-              if (hasKey == true) {
+              if (numCollectedKeys == numAllKeys) {
                 portal_sound.play();
                 game.levelComplete();
               }
@@ -161,7 +173,7 @@ class Player extends GameObject {
               stopPlayer(o, dt, hitbox);
             }
           }
-          }
+        }
       }
     }
    // boolean do_it = false;
@@ -258,12 +270,8 @@ class Player extends GameObject {
     }
     
     super.update();
+    
   }
-
- 
-  void pickup() {
-    this.hasKey = true;
-  }  
  
   public void stopSelf(boolean detached) {
     if (detached) {
