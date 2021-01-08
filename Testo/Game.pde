@@ -35,6 +35,7 @@ class Game {
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
   private ArrayList<String> badCoreImage;
+  private ArrayList<String> plateImage;
   
   private PImage fall;
   private PImage bull;
@@ -55,6 +56,7 @@ class Game {
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
+    plateImage = new ArrayList<String>(Arrays.asList("images/lever.png"));
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
     end = loadImage("images/ending.png");
@@ -99,11 +101,14 @@ class Game {
         if (player != null) {
           player.update(dt);
         }
-        chi.update(dt);
-        
-        
-     //   mvPlatform.update(dt);
+        if (chi != null) {
+          chi.update(dt);
+        }
+        if (mvPlatform != null) {
+          mvPlatform.update(dt);
+        }
       }
+     // }
      // mvPlatform.update(dt);
      // mvPlatform2.update(dt);
      // mvPlatform3.update(dt);
@@ -125,9 +130,19 @@ class Game {
     return allHitboxes;
   }
   
-  public boolean collision(Hitbox box1, Hitbox box2) {
+  public boolean xCollision(Hitbox box1, Hitbox box2) {
     boolean inX = box1.getX() + box1.getWidth() >= box2.getX() && box1.getX() <= box2.getX() + box2.getWidth();
+    return inX;
+  }
+  
+  public boolean yCollision(Hitbox box1, Hitbox box2) {
     boolean inY = box1.getY() + box1.getHeight() >= box2.getY() && box1.getY() <= box2.getY() + box2.getHeight();
+    return inY;
+  }
+  
+  public boolean collision(Hitbox box1, Hitbox box2) {
+    boolean inX = xCollision(box1, box2);
+    boolean inY = yCollision(box1, box2);
     if (inX && inY && box1.isActive() && box2.isActive()) {
       return true;
     } else {
@@ -256,18 +271,17 @@ class Game {
     camera = new Camera(this, level_size);
   }
   
- /** public void testMovingPlatform() { 
+ /** public void testMovingPlatform() {
     background = new Background(this, backgroundImage);
-    level_size = width/4 + 200 + 1000 + 50 + 500 + 500;
-    
+    level_size = width/4 + 200 + 1000 + 50 + 500 + 10000;
+
     platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
-    Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/2, height/2.1, this, coreImage);
-    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 200.0, this);
-    Lever lever1 = new Lever(width/0.75, height/1.5, mvPlatform, this); 
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
+    PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
 
     
-    player = new Player(width / 1, height / 2, 30.0, 50.0, this, playerImage, testo); 
+    player = new Player(width / 1.3, height / 3, 30.0, 50.0, this, playerImage, testo); 
     chi = new Chi(width / 1, height / 2, player, this, chiImage, testo);
     camera = new Camera(this, level_size);
   } */

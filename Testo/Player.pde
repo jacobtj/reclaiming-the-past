@@ -5,10 +5,12 @@ class Player extends GameObject {
   private boolean hasAllKeys = false;
   private int numCollectedKeys = 0;
   private int numAllKeys = 1;
+  private final float XSPEED = 200;
+  private boolean hasKey = false;
   private float accely_scale = 0.6;     //speed of falling
   private float accely = accely_scale;
-  private float max_accel = 150;        //max accel of gravity (?)
-  private float xvelo = 200.0;
+  private float max_accel = 150;   //max accel of gravity (?)
+  private float xvelo = XSPEED;
   private float yvelo = 11.0;           //jumping speed
   private float time = 0;
   public float chiTime = 0;
@@ -35,6 +37,13 @@ class Player extends GameObject {
   private boolean first_touch_after_deattach = false;
   ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   boolean constructChi = true;
+  private PPlate curr_plate = null;
+  private boolean on_plate = false;
+  private float platform_velo = 0;
+  private Hitbox platformToStickTo;
+  private float platform_x_now = 0;
+  private float platform_x_before = 0;
+  protected boolean deattach = false;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.testo = testo;
@@ -67,20 +76,14 @@ class Player extends GameObject {
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
+    on_plate = false;
    // System.out.println(y);
-    if (y >= height) {
-      game.gameOver();
-    }
-    if (hasChi && x < 0) {
-      x = 0;
-    }
-    if (x + w < 0) {
-      //System.out.println("NOW");
-      x += game.getLevelSize();
-    }
+    
    
     if (hasChi) {
-     
+      if (!(this instanceof Chi)) {
+      // System.out.println(xvelo);
+      }
       if (isKeyDown('w')) {
        // y -= accely * dt;
       }
@@ -88,11 +91,13 @@ class Player extends GameObject {
        // y += accely * dt;
       }
       if (isKeyDown('a')) {
+        x += platform_velo;
         x -= xvelo * dt;
         isWalking = true;
         walkingLeft = true;
       }
       if (isKeyDown('d')) {
+        x += platform_velo;
         x += xvelo * dt;
         isWalking = true;
       }
@@ -109,7 +114,10 @@ class Player extends GameObject {
               core_sound.play();
               hitbox.getParent().setInvisible(true);
               hitbox.getParent().setActive(false);
-              System.out.println(numCollectedKeys);
+            if (hitbox.getParent() instanceof PPlate) {
+              ((Moving_Platform) ((PPlate) hitbox.getParent()).child).platform_start();
+              on_plate = true;
+              curr_plate = (PPlate) hitbox.getParent();
             }
             else if (hitbox.getParent() instanceof Door) {
               if (numCollectedKeys == numAllKeys) {
@@ -120,23 +128,14 @@ class Player extends GameObject {
             else if (hitbox.getParent() instanceof KeyBad) {
               game.gameOver();
             }
-            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") {  
-              touches = true;
-              String o = whichOrientation(this.hitbox[i], hitbox);
-              stopPlayer(o, dt, hitbox);
-            }
-             /** if (justLanded == false || isWalking) {
-                float curr_x = this.getX();
-                float curr_y = this.getY();
-                diff_x = curr_x - hitbox.getX();
-                diff_y = curr_y - hitbox.getY();
-                justLanded = true;
+            else if (hitbox.getParent() instanceof Moving_Platform && whichOrientation(this.hitbox[i], hitbox) == "top") { 
+              if (platformToStickTo == null) {
+                platform_x_now = hitbox.getParent().getX();
+                platform_x_before = platform_x_now;
               }
-              // System.out.println(justLanded);
-              this.setX(hitbox.getX());
-              //this.setX(hitbox.getX() + diff_x);
-              this.setY(hitbox.getY() - 50);
-            } */
+              platformToStickTo = hitbox;
+              touches = true;
+            }
             else {
               if (!landed && !(this instanceof Chi)) {
                 landing_sound.play();
@@ -151,10 +150,58 @@ class Player extends GameObject {
           }
       }
     }
+   // boolean do_it = false;
+    if ((this instanceof Chi) && deattach == false) {
+     // platformToStickTo = null;
+      //touches = false;
+    }
+    if (platformToStickTo != null) {
+      //System.out.println("Jumping " + jumping);
+      //System.out.println("Touches " + touches);
+      boolean still_stuck = false;
+      for (int i = 0; i < this.hitbox.length; i += 1) {
+        if (this.hitbox[i] == null) continue;
+        if (this.game.xCollision(this.hitbox[i], platformToStickTo) && (touches || !jumping)) {
+          //System.out.println("Starto");
+          still_stuck = true;
+          touches = true;
+          platform_x_now = platformToStickTo.getParent().getX();
+          platform_velo = platform_x_now - platform_x_before;
+          String o = whichOrientation(this.hitbox[i], platformToStickTo);
+          stopPlayer(o, dt, platformToStickTo);
+          if (justLanded == false || isWalking) {
+            //System.out.println("TELEPORT");
+            float curr_x = this.getX();
+            float curr_y = this.getY();
+            diff_x = curr_x - platformToStickTo.getParent().getX();
+            diff_y = curr_y - platformToStickTo.getParent().getY();
+            
+           // xvelo = XSPEED + platform_velo;
+            
+           // System.out.println(diff_x);
+          }
+          justLanded = true;
+         // do_it = true;
+          this.setX(platformToStickTo.getParent().getX() + diff_x);
+          this.setY(platformToStickTo.getParent().getY() + diff_y);
+          
+          platform_x_before = platform_x_now;
+        }
+      }
+      if (still_stuck == false) {
+       // System.out.println("exit");
+        platformToStickTo = null;
+        platform_velo = 0;
+      }
+      
+    }
+    //if (do_it == false){ 
+      //System.out.println("FALSE");
+  //  }
     if (!touches) {
       landed = false;
       justLanded = false;
-      xvelo = 200.0;
+      xvelo = XSPEED;
       accely = accely_scale;
     }
     if (!ready_to_jump) {
@@ -177,6 +224,25 @@ class Player extends GameObject {
     chiTime = 0;
     }
     gravity(dt);
+
+    if (curr_plate != null && !on_plate) {
+      ((Moving_Platform) curr_plate.child).platform_stop();
+    }
+    
+    if (y >= height) {
+      game.gameOver();
+    }
+    if (hasChi && x < 0) {
+      x = 0;
+    }
+    if (hasChi && x + w > width) {
+      x = width - w;
+    }
+    if (x + w < 0) {
+      //System.out.println("NOW");
+      x += game.getLevelSize();
+    }
+    
     super.update();
   }
  
@@ -251,7 +317,7 @@ class Player extends GameObject {
      // xvelo = 0;
      // x = object.getX() - w;
       if (isKeyDown('a')) {
-        xvelo = 200;
+        xvelo = XSPEED;
       }
     } if (orientation.equals("right")) {
      // x = object.getX() + object.getWidth();
@@ -260,7 +326,7 @@ class Player extends GameObject {
       }
       //xvelo = 0;
       if (isKeyDown('d')) {
-        xvelo = 200;
+        xvelo = -XSPEED;
       }
     } else if (orientation.equals("bottom")){
       jumping = false;
