@@ -33,6 +33,8 @@ class Player extends GameObject {
   private boolean first_touch_after_deattach = false;
   ArrayList<Hitbox> hitboxList = new ArrayList<Hitbox>();
   boolean constructChi = true;
+  private PPlate curr_plate = null;
+  private boolean on_plate = false;
   public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.hasKey = false;
@@ -62,6 +64,7 @@ class Player extends GameObject {
     chiTime += 1;
     touches = false;
     ready_to_jump = false;
+    on_plate = false;
    // System.out.println(y);
     if (y >= height) {
       game.gameOver();
@@ -101,7 +104,12 @@ class Player extends GameObject {
         if (this.hitbox[i] == null) continue;
         if (!(hitbox.getParent() instanceof Player)) {
           if (game.collision(this.hitbox[i], hitbox)) {
-            if (hitbox.getParent() instanceof Key) {
+            if (hitbox.getParent() instanceof PPlate) {
+              ((Moving_Platform) ((PPlate) hitbox.getParent()).child).platform_start();
+              on_plate = true;
+              curr_plate = (PPlate) hitbox.getParent();
+            }
+            else if (hitbox.getParent() instanceof Key) {
               this.hasKey = true;
               core_sound.play();
               hitbox.getParent().setInvisible(true);
@@ -124,7 +132,7 @@ class Player extends GameObject {
               if (justLanded == false || isWalking) {
                 float curr_x = this.getX();
                 float curr_y = this.getY();
-                diff_x = curr_x - hitbox.getX();
+              diff_x = curr_x - hitbox.getX();
                 diff_y = curr_y - hitbox.getY();
               }
               justLanded = true;
@@ -172,6 +180,9 @@ class Player extends GameObject {
     chiTime = 0;
     }
     gravity(dt);
+    if (curr_plate != null && !on_plate) {
+      ((Moving_Platform) curr_plate.child).platform_stop();
+    }
     super.update();
   }
 
