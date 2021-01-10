@@ -4,7 +4,7 @@ class Chi extends Player {
   private boolean jumping = false;
   private boolean pressed_down = false;
   private PApplet testo;
-  public Chi(float x, float y, Player parent, Game game, ArrayList<String> img, PApplet testo) {
+  public Chi(float x, float y, Player parent, Game game, ArrayList<PImage> img, PApplet testo) {
     super(x - 10, y, 10.0, 40.0, game, img, testo);
     this.parent = parent;
   }

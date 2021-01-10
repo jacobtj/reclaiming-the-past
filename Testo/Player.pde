@@ -45,7 +45,7 @@ class Player extends GameObject {
   private float platform_x_before = 0;
   protected boolean deattach = false;
   private boolean ePressed = false;
-  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
+  public Player(float x, float y, float w, float h, Game game, ArrayList<PImage> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.testo = testo;
     for (Hitbox hitbox: game.getHitboxes()) {

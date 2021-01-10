@@ -10,7 +10,7 @@ class GameObject {
   private float offset1 = 0;
   private float offset2 = 0;
   
-  public GameObject(float x, float y, float w, float h, int[] colors, Game game, ArrayList<String> img) {
+  public GameObject(float x, float y, float w, float h, int[] colors, Game game, ArrayList<PImage> img) {
     this.image = new ArrayList<PImage>();
     this.x = x;
     this.y = y;
@@ -18,8 +18,8 @@ class GameObject {
     this.h = h;
     this.colors = colors;
     this.game = game;
-    for (String image : img) {
-      this.image.add(loadImage(image));
+    for (PImage image : img) {
+      this.image.add(image);
     }
     
     if (! (this instanceof Background)) {

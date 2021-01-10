@@ -6,7 +6,7 @@ abstract class Button extends GameObject {
   //public boolean clicked = false;
   abstract void action();
   
-  public Button(float bx, float by, float bw, float bh, Game game, ArrayList<String> img) {  
+  public Button(float bx, float by, float bw, float bh, Game game, ArrayList<PImage> img) {  
     super(bx, by, bw, bh, new int[] {0, 255, 0}, game, img);
     this.x = bx;
     this.y = by;

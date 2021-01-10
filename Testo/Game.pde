@@ -30,16 +30,24 @@ class Game {
   private ArrayList<GameObject> allObjects;
   private boolean gameOver = false;
   private boolean levelComplete = false;
-  private ArrayList<String> playerImage;
-  private ArrayList<String> chiImage;
-  private ArrayList<String> backgroundImage;
-  private ArrayList<String> menuImage;
+  private ArrayList<PImage> playerImage;
+  private ArrayList<PImage> chiImage;
+  private ArrayList<PImage> backgroundImage;
+  private ArrayList<PImage> platformImage;
+  private ArrayList<PImage> menuImage;
   
+<<<<<<< HEAD
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
   private ArrayList<String> badCoreImage;
   private ArrayList<String> plateImage;
   private ArrayList<String> startButtonImage;
+=======
+  private ArrayList<PImage> coreImage;
+  private ArrayList<PImage> portalImage;
+  private ArrayList<PImage> badCoreImage;
+  private ArrayList<PImage> plateImage;
+>>>>>>> f0e66d3... Optimized Engine
   
   private PImage fall;
   private PImage bull;
@@ -55,17 +63,25 @@ class Game {
   public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
-    playerImage = new ArrayList<String>(Arrays.asList("images/Player1.png", "images/Player2.png", "images/Player3.png", "images/Player4.png", "images/Player5.png", "images/Player6.png", "images/Player7.png"));
-    chiImage = new ArrayList<String>(Arrays.asList("images/chi1.png", "images/chi2.png", "images/chi3.png", "images/chi4.png", "images/chi5.png", "images/chi6.png", "images/chi7.png", "images/chi8.png", "images/chi9.png", "images/chi10.png", "images/chi11.png", "images/chi12.png", "images/chi13.png", "images/chi14.png", "images/chi15.png"));
-    backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png")); //"images/background.png", "images/background.png"));
-    menuImage = new ArrayList<String>(Arrays.asList("images/menu.jpg"));
+    playerImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/Player1.png"), loadImage("images/Player2.png"), loadImage("images/Player3.png"), loadImage("images/Player4.png"), loadImage("images/Player5.png"), loadImage("images/Player6.png"), loadImage("images/Player7.png")));
+    chiImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/chi1.png"), loadImage("images/chi2.png"), loadImage("images/chi3.png"), loadImage("images/chi4.png"), loadImage("images/chi5.png"), loadImage("images/chi6.png"), loadImage("images/chi7.png"), loadImage("images/chi8.png"), loadImage("images/chi9.png"), loadImage("images/chi10.png"), loadImage("images/chi11.png"), loadImage("images/chi12.png"), loadImage("images/chi13.png"), loadImage("images/chi14.png"), loadImage("images/chi15.png")));
+    backgroundImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/background.png"))); //"images/background.png", "images/background.png"));
+    menuImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/menu.jpg")));
     
+<<<<<<< HEAD
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
     plateImage = new ArrayList<String>(Arrays.asList("images/lever.png"));
     startButtonImage = new ArrayList<String>(Arrays.asList("images/startbutton.png"));
     
+=======
+    coreImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/memoryCore.png")));
+    portalImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/portal.png")));
+    badCoreImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/memoryCoreDark.png")));
+    plateImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/lever.png")));
+    platformImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/platform.png")));
+>>>>>>> f0e66d3... Optimized Engine
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
     end = loadImage("images/ending.png");
@@ -77,18 +93,27 @@ class Game {
     this.testo = testo;
    // System.out.println("Step 2 " + this.testo);
     
+<<<<<<< HEAD
    // currentLevel = 0;
     startMenu();
+=======
+    //currentLevel = 0;
+    //startMenu();
+>>>>>>> f0e66d3... Optimized Engine
     
-    //currentLevel = 1;
+    currentLevel = 1;
     
-    //levelOne();
+    levelOne();
     //testMovingPlatform();
   }
   
   public void startMenu() { 
     background = new Background(this, menuImage);
+<<<<<<< HEAD
     button = new ButtonStart(width / 2 - 100, height / 2, 200, 50, this, startButtonImage);
+=======
+    button = new ButtonStart(width / 2 - 100, height / 2, 200, 50, this, new ArrayList<PImage>());
+>>>>>>> f0e66d3... Optimized Engine
     
   }
   
@@ -96,7 +121,9 @@ class Game {
     currentLevel += 1;
     allHitboxes.clear();
     allObjects.clear();
-    
+    if (currentLevel == 1) {
+      levelOne();
+    }
     if (currentLevel == 2) {
       levelTwo();
     } else if(currentLevel == 3) {
@@ -237,9 +264,9 @@ class Game {
   public void levelZero() {
     background = new Background(this, backgroundImage);
     level_size = 400;
-    new Platform(width / 4, height / 2.5, 2000, 1000, this);
-    new Platform(width / 1.5, height / 4, 200, 100, this);
-    new Platform(width, height / 4, 200, 1000, this);
+    new Platform(width / 4, height / 2.5, 2000, 1000, this, platformImage);
+    new Platform(width / 1.5, height / 4, 200, 100, this, platformImage);
+    new Platform(width, height / 4, 200, 1000, this, platformImage);
     //platforma1 = new Platform(20, height / 20, 600, 1000, this);
     player = new Player(width / 2, height / 3, 30, 50, this, playerImage, this.testo); 
     chi = new Chi(width / 2, height / 3, player, this, chiImage, this.testo); 
@@ -250,7 +277,7 @@ class Game {
     
     level_size = 1700 + width / 8;
     background = new Background(this, backgroundImage);
-    platforma1 = new Platform(0, height / 1.1, 1700, 10000, this);
+    platforma1 = new Platform(0, height / 1.1, 1700, 10000, this, platformImage);
     //platforma1 = new Platform(width / 8, height / 1.3, 1700, 1000, this);
    // platforma2 = new Platform(width / 4 + 400, height / 1.3, 500, 1000, this);
    // platforma3 = new Platform(width / 4 + 800, height / 1.3, 500, 1000, this);
@@ -279,12 +306,12 @@ class Game {
     background = new Background(this, backgroundImage);
     level_size = width/4 + 200 + 1000 + 50 + 500;
     
-    platform = new Platform(50, height / 1.3, width/4 + 200 + 1000 + 50 - 100, 1000, this);
+    platform = new Platform(50, height / 1.3, width/4 + 200 + 1000 + 50 - 100, 1000, this, platformImage);
    // platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
    // platform3 = new Platform(width/4 + 1200, height / 1.3, 300, 100, this);
-    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, true, this);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2, (float) 100, (float) 100, 4, 100.0, true, this, platformImage);
   //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
-    platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this);
+    platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this, platformImage);
     Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
     Key key1 = new Key(width/4 + 200 + 1000 + 50 + 250, height / 1.7 - 50, this, coreImage);
     player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo);

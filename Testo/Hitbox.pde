@@ -51,7 +51,7 @@ class Hitbox {
   }
   
   public void draw() {
-    fill(colors[0], colors[1], colors[2]);
+    fill(colors[0], colors[1], colors[2], 50);
     
     if (!(parent instanceof Key)) {
      // rect(x, y, w, h);

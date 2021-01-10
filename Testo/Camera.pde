@@ -2,7 +2,8 @@ class Camera {
   private Game game;
   private float dist = 0;
   private float player_dist = 0;
-  private float speed = 1;
+  private float speed = 2;
+  private float background_speed = 0.5;
   private float range_max;
   private float range_min = 0;
   private boolean first_round = true;
@@ -115,7 +116,11 @@ class Camera {
           //System.out.println(object.getX());
         }
       if (object.toString() != "Player" || (object instanceof Player && !((Player) object).getHasChi())) {
-        object.setX(object.getX() - speed);
+        if (object instanceof Background) {
+          object.setX(object.getX() - background_speed);
+        } else {
+          object.setX(object.getX() - speed);
+        }
        
         if (! (object instanceof Background)) {
           for (int i = 0; i < object.getHitbox().length; i += 1) {

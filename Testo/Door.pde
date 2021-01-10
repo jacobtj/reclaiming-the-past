@@ -3,7 +3,7 @@ class Door extends GameObject {
   protected Hitbox hitbox;
   private Game game;
   
-  public Door(float x, float y, Game game, ArrayList<String> img) {
+  public Door(float x, float y, Game game, ArrayList<PImage> img) {
     super(x, y, 60.0, 70.0, new int[] {255, 0, 255}, game, img);
   }
   

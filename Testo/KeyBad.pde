@@ -3,7 +3,7 @@ class KeyBad extends GameObject {
   protected Hitbox hitbox;
   private Game game;
   
-  public KeyBad(float x, float y, Game game, ArrayList<String> img) {
+  public KeyBad(float x, float y, Game game, ArrayList<PImage> img) {
     super(x, y, 20, 20, new int[] {0, 255, 255}, game, img);
   }
 
