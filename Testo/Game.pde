@@ -39,6 +39,7 @@ class Game {
   private ArrayList<String> portalImage;
   private ArrayList<String> badCoreImage;
   private ArrayList<String> plateImage;
+  private ArrayList<String> startButtonImage;
   
   private PImage fall;
   private PImage bull;
@@ -63,6 +64,8 @@ class Game {
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
     plateImage = new ArrayList<String>(Arrays.asList("images/lever.png"));
+    startButtonImage = new ArrayList<String>(Arrays.asList("images/startbutton.png"));
+    
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
     end = loadImage("images/ending.png");
@@ -75,7 +78,7 @@ class Game {
    // System.out.println("Step 2 " + this.testo);
     
    // currentLevel = 0;
-  //  startMenu();
+    startMenu();
     
     //currentLevel = 1;
     
@@ -85,7 +88,7 @@ class Game {
   
   public void startMenu() { 
     background = new Background(this, menuImage);
-    button = new ButtonStart(width / 2 - 100, height / 2, 200, 50, this, new ArrayList<String>());
+    button = new ButtonStart(width / 2 - 100, height / 2, 200, 50, this, startButtonImage);
     
   }
   

@@ -69,8 +69,8 @@ class Hitbox {
     } if (parent instanceof Lever) {
       ((Lever) parent).draw(x, y, w, h);
     } if (parent instanceof Button) {
-      //((Button) parent).draw(x, y, w, h);
-      rect(x, y, w, h);
+      ((Button) parent).draw(x, y, w, h + 5);
+      //rect(x, y, w, h);
     }
     
   }
