@@ -6,9 +6,8 @@ class Game {
   Player player;
   Chi chi;
   int currentLevel;
-  Button button;
-  
-  Platform startButton;
+  Button startbutt;
+  Button quitbutt;
   
   Platform platforma1;
   Platform platforma2;
@@ -40,6 +39,8 @@ class Game {
   private ArrayList<PImage> backgroundImage;
   private ArrayList<PImage> platformImage;
   private ArrayList<PImage> menuImage;
+  private ArrayList<PImage> startButtImage;
+  private ArrayList<PImage> quitButtImage;
   
   private ArrayList<PImage> coreImage;
   private ArrayList<PImage> portalImage;
@@ -51,6 +52,7 @@ class Game {
   private PImage bull2;
   private PImage end;
   private PImage menu;
+  private PImage start;
   
   private PApplet testo;
   private int levelCompleteDelay = 0;
@@ -71,6 +73,9 @@ class Game {
     badCoreImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/memoryCoreDark.png")));
     plateImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/lever.png")));
     platformImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/platform.png")));
+    
+    startButtImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/startbutton.png")));
+    quitButtImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/quitbutton.png")));
 
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
@@ -78,14 +83,15 @@ class Game {
     fall = loadImage("images/falling.png");
     
     menu = loadImage("images/menu.jpg");
+    start = loadImage("images/startbutton.png");
     
     
     this.testo = testo;
    // System.out.println("Step 2 " + this.testo);
     levelmaker = new LevelMaker(this);
     currentLevel = -1;
-    //nextLevel();
-   // startMenu();
+    nextLevel();
+    startMenu();
     
     //currentLevel = 1;
     
@@ -95,7 +101,8 @@ class Game {
   
   public void startMenu() { 
     background = new Background(this, menuImage);
-    button = new ButtonStart(width / 2 - 100, height / 2, 200, 50, this, new ArrayList<PImage>());
+    startbutt = new ButtonStart(width / 2 - 100, height / 2 - 40, 200, 50, this, startButtImage);
+    quitbutt = new ButtonQuit(width / 2 - 100, height / 2 + 10, 200, 50, this, quitButtImage);
     
   }
   
@@ -354,3 +361,5 @@ class Game {
     mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
     //PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
     Lever lever1 = new Lever(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage);
+    */
+ }

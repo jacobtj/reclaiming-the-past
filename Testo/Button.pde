@@ -15,7 +15,11 @@ abstract class Button extends GameObject {
   }
   
   void draw(float hx, float hy, float hw, float hh) {
-    image(this.image.get(0), hx, y, w, h);   
+    if (this.image.size() > 0) {
+      tint(255, 100);
+      image(this.image.get(0), hx, y, w, h);   
+      noTint();
+    }
   }
   
   void update(float dt) {

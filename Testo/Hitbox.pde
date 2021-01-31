@@ -89,4 +89,5 @@ class Hitbox {
     this.w = w;
     this.h = h;
   }
+
 }

@@ -2,7 +2,7 @@ class Camera {
   private Game game;
   private float dist = 0;
   private float player_dist = 0;
-  private float speed = 2;
+  private float speed = 2.5;
   private float background_speed = 1;
   private float range_max;
   private float range_min = 0;
