@@ -12,6 +12,7 @@ class LevelMaker {
   private ArrayList<String> portalImage;
   private ArrayList<String> badCoreImage;
   private ArrayList<String> plateImage;
+  private GameObject currentMoving;
   //display all the possible objects on the side
   // make all of them drag and droppable ? wtf
   // make a scroll thing so levels can be as long as the player wants
@@ -36,5 +37,6 @@ class LevelMaker {
   
   public void update() {
   //do stuff that makes the players drags show up
+  //for scrolling and maybe saving
   }
 }
