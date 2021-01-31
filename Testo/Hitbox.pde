@@ -51,12 +51,13 @@ class Hitbox {
   }
   
   public void draw() {
-    fill(colors[0], colors[1], colors[2]);
-    
-    if (!(parent instanceof Key)) {
+    fill(colors[0], colors[1], colors[2], 50);
+    parent.draw(x, y, w, h);
+   // if (!(parent instanceof Key)) {
      // rect(x, y, w, h);
-    }
-    if (parent instanceof Platform) {
+   // }
+    
+    /*if (parent instanceof Platform) {
       ((Platform) parent).drawPlatform(x, y, w, h);
     } if (parent instanceof Player) {
       ((Player) parent).draw(x, y, w, h);
@@ -71,7 +72,7 @@ class Hitbox {
     } if (parent instanceof Button) {
       //((Button) parent).draw(x, y, w, h);
       rect(x, y, w, h);
-    }
+    }*/
     
   }
   

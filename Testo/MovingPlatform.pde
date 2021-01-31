@@ -11,8 +11,8 @@ class MovingPlatform extends Platform {
 
   private Game game;
   
-  public MovingPlatform(float x, float y, float w, float h, int direction, float turnback, boolean moving, Game game) {
-    super(x,y,w,h, game);
+  public MovingPlatform(float x, float y, float w, float h, int direction, float turnback, boolean moving, Game game,  ArrayList<PImage> img) {
+    super(x,y,w,h, game, img);
     this.direction = direction;
     this.turnback = turnback;
     this.moving = moving;

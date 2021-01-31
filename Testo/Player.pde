@@ -45,7 +45,7 @@ class Player extends GameObject {
   private float platform_x_before = 0;
   protected boolean deattach = false;
   private boolean ePressed = false;
-  public Player(float x, float y, float w, float h, Game game, ArrayList<String> img, PApplet testo) {
+  public Player(float x, float y, float w, float h, Game game, ArrayList<PImage> img, PApplet testo) {
     super(x, y, w, h, new int[] {0, 255, 0}, game, img);
     this.testo = testo;
     for (Hitbox hitbox: game.getHitboxes()) {
@@ -125,7 +125,7 @@ class Player extends GameObject {
             else if (hitbox.getParent() instanceof Lever) {
               if (keyPressed && !(this instanceof Chi)) {
                 if (key == 'e' && ePressed == false) {
-                  ((Moving_Platform) ((Lever) hitbox.getParent()).child).platform_flip();
+                  ((MovingPlatform) ((Lever) hitbox.getParent()).child).platform_flip();
                   ePressed = true;
                 } 
               } 
@@ -264,7 +264,8 @@ class Player extends GameObject {
       x += game.getLevelSize();
     }
     
-    super.update();
+    super.update(dt);
+    
   }
  
   public void stopSelf(boolean detached) {

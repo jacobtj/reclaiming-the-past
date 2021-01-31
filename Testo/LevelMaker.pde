@@ -7,11 +7,11 @@ class LevelMaker {
   private PPlate pPlate;
   private Platform platform;
   private MovingPlatform mvPlatform;
-  private ArrayList<String> backgroundImage;
   private ArrayList<String> coreImage;
   private ArrayList<String> portalImage;
   private ArrayList<String> badCoreImage;
   private ArrayList<String> plateImage;
+  private ArrayList<PImage> backgroundImage;
   private GameObject currentMoving;
   //display all the possible objects on the side
   // make all of them drag and droppable ? wtf
@@ -22,11 +22,12 @@ class LevelMaker {
   //smh
   //load the files to play the game wowee
   public LevelMaker() {
-    backgroundImage = new ArrayList<String>(Arrays.asList("images/background.png")); //"images/background.png", "images/background.png"));
+    backgroundImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/background.png"))); //"images/background.png", "images/background.png"));
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
     plateImage = new ArrayList<String>(Arrays.asList("images/lever.png"));
+   // backgroundPImage.add(loadImage(backgroundImage.get(0)));
     setStage();
     
   }

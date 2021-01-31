@@ -2,7 +2,8 @@ class Camera {
   private Game game;
   private float dist = 0;
   private float player_dist = 0;
-  private float speed = 1;
+  private float speed = 2;
+  private float background_speed = 1;
   private float range_max;
   private float range_min = 0;
   private boolean first_round = true;
@@ -82,13 +83,13 @@ class Camera {
             if (first_round) {
               object.setOffset1(object.getOffset1() + range_max * 2);
               for (int i = 0; i < object.getHitbox().length; i += 1) {
-                object.update();
+                object.update(dt);
               }
              // System.out.println("First round done!");
             } else {
               object.setOffset2(object.getOffset2() + range_max * 2);
               for (int i = 0; i < object.getHitbox().length; i += 1) {
-                object.update();
+                object.update(dt);
               }
             }
           }
@@ -109,17 +110,24 @@ class Camera {
         }
       }
     }*/
-   
+   //System.out.println("HERE");
+  // System.out.println(objectList.size());
     for (GameObject object : objectList) {
       if (object.toString() != "Player") {
           //System.out.println(object.getX());
         }
       if (object.toString() != "Player" || (object instanceof Player && !((Player) object).getHasChi())) {
-        object.setX(object.getX() - speed);
+        if (object instanceof Background) {
+          object.setX(object.getX() - background_speed);
+        } else {
+          object.setX(object.getX() - speed);
+        }
        
         if (! (object instanceof Background)) {
+          
           for (int i = 0; i < object.getHitbox().length; i += 1) {
-            object.update();//object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
+            
+            object.update(dt);//object.getX(), object.getY(), object.getWidth(), object.getHeight(), object.getColor());
           }
         }
       } else {

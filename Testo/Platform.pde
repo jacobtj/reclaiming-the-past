@@ -14,8 +14,8 @@ class Platform extends GameObject {
   private float dif_y = 0;
   private PImage new_image = createImage(200, 150, RGB);
   
-  public Platform(float x, float y, float w, float h, Game game) {
-    super(x, y, w, h < ref_height ? h : ref_height, new int[] {0, 0, 255}, game, new ArrayList<String>(Arrays.asList("images/platform.png")));
+  public Platform(float x, float y, float w, float h, Game game, ArrayList<PImage> imgs) {
+    super(x, y, w, h < ref_height ? h : ref_height, new int[] {0, 0, 255}, game, imgs);
     
     if (h > ref_height) {
       h = ref_height;
@@ -123,10 +123,10 @@ class Platform extends GameObject {
   
   //update the position of the platform over time (but only implemented for moving platform...)
   void update(float dt) {
-    super.update();
+    super.update(dt);
   }
   
-  public void drawPlatform(float hx, float hy, float hw, float hh) {
+  public void draw(float hx, float hy, float hw, float hh) {
     image(new_image, hx - dif_x, y - dif_y, sprite_width, sprite_height);
   }
   
