@@ -1,4 +1,5 @@
 class LevelMaker {
+  private Game game;
   private Background background;
   private Door portal;
   private Key memoryCore;
@@ -21,12 +22,13 @@ class LevelMaker {
   //make something in Game? that can read from the files
   //smh
   //load the files to play the game wowee
-  public LevelMaker() {
+  public LevelMaker(Game game) {
     backgroundImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/background.png"))); //"images/background.png", "images/background.png"));
     coreImage = new ArrayList<String>(Arrays.asList("images/memoryCore.png"));
     portalImage = new ArrayList<String>(Arrays.asList("images/portal.png"));
     badCoreImage = new ArrayList<String>(Arrays.asList("images/memoryCoreDark.png"));
     plateImage = new ArrayList<String>(Arrays.asList("images/lever.png"));
+    this.game = game;
    // backgroundPImage.add(loadImage(backgroundImage.get(0)));
     setStage();
     

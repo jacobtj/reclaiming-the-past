@@ -22,6 +22,8 @@ class Game {
   Platform platform3;
   Platform platform4;
   Platform platform5;
+
+  LevelMaker levelmaker;
   
  // Moving_Platform mvPlatform;
  // Moving_Platform mvPlatform2;
@@ -69,6 +71,7 @@ class Game {
     badCoreImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/memoryCoreDark.png")));
     plateImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/lever.png")));
     platformImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/platform.png")));
+
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
     end = loadImage("images/ending.png");
@@ -79,9 +82,9 @@ class Game {
     
     this.testo = testo;
    // System.out.println("Step 2 " + this.testo);
-    
+    levelmaker = new LevelMaker(this);
     currentLevel = -1;
-    nextLevel();
+    //nextLevel();
    // startMenu();
     
     //currentLevel = 1;
@@ -297,9 +300,57 @@ class Game {
     mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
     //PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
     Lever lever1 = new Lever(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage);
-    
-    player = new Player(width / 1.3, height / 3, 30.0, 50.0, this, playerImage, testo); 
-    chi = new Chi(width / 1, height / 2, player, this, chiImage, testo);
+  //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
+    platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this, platformImage);
+    Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
+    Key key1 = new Key(width/4 + 200 + 1000 + 50 + 250, height / 1.7 - 50, this, coreImage);
+    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo);
+    chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
     camera = new Camera(this, level_size);
-  } */
-}
+  }
+  
+ /** public void testMovingPlatform() {
+    background = new Background(this, backgroundImage);
+    level_size = width/4 + 200 + 1000 + 50 + 500 + 10000;
+
+    platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
+    Key key1 = new Key(width/2, height/2.1, this, coreImage);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
+    //PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
+    Lever lever1 = new Lever(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage);
+  //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
+    platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this, platformImage);
+    Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
+    Key key1 = new Key(width/4 + 200 + 1000 + 50 + 250, height / 1.7 - 50, this, coreImage);
+    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo);
+    chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
+    camera = new Camera(this, level_size);
+  }
+  
+ /** public void testMovingPlatform() {
+    background = new Background(this, backgroundImage);
+    level_size = width/4 + 200 + 1000 + 50 + 500 + 10000;
+
+    platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
+    Key key1 = new Key(width/2, height/2.1, this, coreImage);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
+    //PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
+    Lever lever1 = new Lever(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage);
+  //  platform4 = new Platform(width / 1.5 + 1000, height / 1.7, 200, 25.0, this);
+    platform5 = new Platform(width/4 + 200 + 1000 + 50, height / 1.7, 500, 100.0, this, platformImage);
+    Door door1 = new Door(width/1.5, height/1.5, this, portalImage);
+    Key key1 = new Key(width/4 + 200 + 1000 + 50 + 250, height / 1.7 - 50, this, coreImage);
+    player = new Player(width / 2, height / 2, 30, 50, this, playerImage, testo);
+    chi = new Chi(width / 2, height / 2, player, this, chiImage, this.testo); 
+    camera = new Camera(this, level_size);
+  }
+  
+ /** public void testMovingPlatform() {
+    background = new Background(this, backgroundImage);
+    level_size = width/4 + 200 + 1000 + 50 + 500 + 10000;
+
+    platform4 = new Platform(width / 1.5, height / 1.5, 2000, 250, this);
+    Key key1 = new Key(width/2, height/2.1, this, coreImage);
+    mvPlatform = new Moving_Platform((float) width / 2, (float) height / 2.5, (float) 1000, (float) 1000, 2, 20, false, this);
+    //PPlate plate1 = new PPlate(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage); 
+    Lever lever1 = new Lever(width/1.5 + 500, height/1.5, mvPlatform, this, plateImage);
