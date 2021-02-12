@@ -43,6 +43,15 @@ class Game {
   private PApplet testo;
   private int levelCompleteDelay = 0;
   
+  private SoundFile awakeningTheme;
+  private SoundFile reclaimingTheme;
+  private SoundFile familiarTheme;
+  private SoundFile beginningTheme;
+  private SoundFile memoriesFallingTheme;
+  private SoundFile becauseTheme;
+  
+  private MusicHandler musicHandler;
+  
   public Game(PApplet testo) {
     allHitboxes = new ArrayList<Hitbox>();
     allObjects = new ArrayList<GameObject>();
@@ -59,6 +68,15 @@ class Game {
     
     this.testo = testo;
     System.out.println("Step 2 " + this.testo);
+    
+    awakeningTheme = new SoundFile(testo, "Sounds/Awakening to a New World.wav");
+    reclaimingTheme = new SoundFile(testo, "Sounds/Recalling A Long Time Past.wav");
+    familiarTheme = new SoundFile(testo, "Sounds/A Familiar Stranger.wav");
+    beginningTheme = new SoundFile(testo, "Sounds/Beginning Again.wav");
+    memoriesFallingTheme = new SoundFile(testo, "Sounds/Memories Filled with Emotion Falling.wav");
+    becauseTheme = new SoundFile(testo, "Sounds/Because of You I Live.wav");
+    
+    musicHandler = new MusicHandler(this);
     
     currentLevel = 0;
     startMenu();
@@ -82,6 +100,7 @@ class Game {
     if (currentLevel == 2) {
       levelTwo();
     } else if(currentLevel == 3) {
+      musicHandler.playSong(becauseTheme, true);
       image(end, 0, 0, width, height);
     }
     levelComplete = false;
@@ -149,8 +168,14 @@ class Game {
     
     if (levelComplete) {
       if (currentLevel == 1) {
+        if (levelCompleteDelay == 0) {
+          musicHandler.playSong(memoriesFallingTheme, true);
+        }
       image(bull, 0, 0, width, height);
       } else if (currentLevel == 2) {
+        if (levelCompleteDelay == 0) {
+          musicHandler.playSong(memoriesFallingTheme, true);
+        }
         image(bull2, 0, 0, width, height);
       } else if (currentLevel == 3) {
         image(end, 0, 0, width, height);
@@ -167,6 +192,7 @@ class Game {
   
   public void gameOver() {
     System.out.println("Game over");
+    musicHandler.playSong(becauseTheme, true);
     gameOver = true;
     
   }
@@ -180,7 +206,7 @@ class Game {
   }
   
   public void levelOne() { 
-    
+    musicHandler.playSong(familiarTheme, true);
     background = new Background(this, backgroundImage);
     platforma1 = new Platform(width / 4, height / 1.3, 400, 100, this);
     platforma2 = new Platform(width / 4 + 400, height / 1.3, 400, 100, this);
@@ -203,7 +229,7 @@ class Game {
   public void levelTwo() {
     //allHitboxes = new ArrayList<Hitbox>();
     //allObjects = new ArrayList<GameObject>();
-     
+     musicHandler.playSong(beginningTheme, true);
     
     platform = new Platform(width/4 + 200, height / 1.3, 500, 100, this);
     platform2 = new Platform(width/4 + 600, height / 1.3, 300, 100, this);
