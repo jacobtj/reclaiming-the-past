@@ -161,6 +161,10 @@ class Game {
           paused = !paused;
           onespace = true;
           
+          if (paused == true) { 
+            pauseMenu();
+          } 
+          
           if (paused == false) {
             allObjects.remove(backgroundbutt);
             allObjects.remove(restartbutt);
@@ -179,15 +183,12 @@ class Game {
       if (!keyPressed && onespace == true) { 
         onespace = false;
       }
-      if (paused == true) { 
-        pauseMenu();
-      }
       
     }
   }
   
   public void pauseMenu() { 
-    backgroundbutt = new ButtNothing(this, width / 2 - 100, height / 2 - 70, 280, 300, new int[] {48, 213, 200, 110});
+    backgroundbutt = new ButtNothing(this, width / 2 - 140, height / 2 - 85, 280, 150, new int[] {48, 213, 200, 165});
     restartbutt = new ButtonStart(width / 2 - 100, height / 2 - 70, 200, 68, this, restartButtImage);
     pauseQuitButt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage);
     //"space to resume?"

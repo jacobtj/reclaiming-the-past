@@ -11,6 +11,7 @@ class ButtNothing extends GameObject {
   void draw(float hx, float hy, float hw, float hh) {
     fill(colors[0], colors[1], colors[2], colors[3]);
     rect(hx, hy, hw, hh);
+    fill(0, 0, 0, 255);
   }
 
   void update(float dt) {
