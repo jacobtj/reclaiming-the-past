@@ -1,12 +1,12 @@
 class MovingPlatform extends Platform {
 
   
-  private float speed = 200.0;
+  private float speed = 3.0;
   //platform moves in a direction (0-7), 0 being north, 1 being north east, ... etc,  
   private int direction = 0;
   //# of calls to update before the platform turns around, 0 is default and signifies no turnback
   private float turnback = 0;
-  private int timesteps = 0;
+  private int timesteps = 0; 
   private boolean moving = true;
 
   private Game game;

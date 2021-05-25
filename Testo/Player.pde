@@ -70,6 +70,31 @@ class Player extends GameObject {
   }
 
   void update(float dt) {
+    
+   if (isWalking || !(this instanceof Chi)) {
+      frameRate += 1;
+      if (frameRate >= 10) {
+        if (!walking_sound.isPlaying() && !(this instanceof Chi)) {
+          if (touches) {
+            walking_sound.play();
+          }
+        }
+        frameRate = 0;
+        if (hasChi) {
+          frame += 1;
+        } else {
+         frame = 1; 
+        }
+      }
+    } if (this instanceof Chi) {
+      frameRateChi += 1;
+      if (frameRateChi >= 5) {
+        frameRateChi = 0;
+        frame += 1;
+      }
+    }
+    
+    
     if (!(this instanceof Chi)) {
       //System.out.println(hasChi);
     }  
@@ -384,27 +409,27 @@ class Player extends GameObject {
     } else {
       image(this.image.get(frame % this.image.size()), x, y, w, h);
     }
-    if (isWalking || !(this instanceof Chi)) {
-      frameRate += 1;
-      if (frameRate >= 10) {
-        if (!walking_sound.isPlaying() && !(this instanceof Chi)) {
-          if (touches) {
-            walking_sound.play();
-          }
-        }
-        frameRate = 0;
-        if (hasChi) {
-          frame += 1;
-        } else {
-         frame = 1; 
-        }
-      }
-    } if (this instanceof Chi) {
-      frameRateChi += 1;
-      if (frameRateChi >= 5) {
-        frameRateChi = 0;
-        frame += 1;
-      }
-    }
+    //if (isWalking || !(this instanceof Chi)) {
+    //  frameRate += 1;
+    //  if (frameRate >= 10) {
+    //    if (!walking_sound.isPlaying() && !(this instanceof Chi)) {
+    //      if (touches) {
+    //        walking_sound.play();
+    //      }
+    //    }
+    //    frameRate = 0;
+    //    if (hasChi) {
+    //      frame += 1;
+    //    } else {
+    //     frame = 1; 
+    //    }
+    //  }
+    //} if (this instanceof Chi) {
+    //  frameRateChi += 1;
+    //  if (frameRateChi >= 5) {
+    //    frameRateChi = 0;
+    //    frame += 1;
+    //  }
+    //}
   }
 }

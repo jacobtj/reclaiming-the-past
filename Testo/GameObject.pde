@@ -18,8 +18,11 @@ abstract class GameObject {
     this.h = h;
     this.colors = colors;
     this.game = game;
-    for (PImage image : img) {
-      this.image.add(image);
+    
+    if (img != null) { 
+      for (PImage image : img) {
+        this.image.add(image);
+      }
     }
     
     if (game != null) {

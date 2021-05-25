@@ -8,6 +8,9 @@ class Game {
   int currentLevel;
   Button startbutt;
   Button quitbutt;
+  Button restartbutt;
+  Button pauseQuitButt;
+  ButtNothing backgroundbutt;
   
   Platform platforma1;
   Platform platforma2;
@@ -34,6 +37,9 @@ class Game {
   private ArrayList<GameObject> objectsToUpdate;
   private boolean gameOver = false;
   private boolean levelComplete = false;
+  private boolean paused = false;
+  private boolean onespace = false;
+  
   private ArrayList<PImage> playerImage;
   private ArrayList<PImage> chiImage;
   private ArrayList<PImage> backgroundImage;
@@ -41,6 +47,7 @@ class Game {
   private ArrayList<PImage> menuImage;
   private ArrayList<PImage> startButtImage;
   private ArrayList<PImage> quitButtImage;
+  private ArrayList<PImage> restartButtImage;
   
   private ArrayList<PImage> coreImage;
   private ArrayList<PImage> portalImage;
@@ -76,6 +83,7 @@ class Game {
     
     startButtImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/startbutton.png")));
     quitButtImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/quitbutton.png")));
+    restartButtImage = new ArrayList<PImage>(Arrays.asList(loadImage("images/restartButton.png")));
 
     bull = loadImage("images/bullying1.png");
     bull2 = loadImage("images/bullying2.png");
@@ -84,6 +92,7 @@ class Game {
     
     menu = loadImage("images/menu.jpg");
     start = loadImage("images/startbutton.png");
+    //restart = 
     
     
     this.testo = testo;
@@ -101,9 +110,17 @@ class Game {
   
   public void startMenu() { 
     background = new Background(this, menuImage);
-    startbutt = new ButtonStart(width / 2 - 100, height / 2 - 40, 200, 50, this, startButtImage);
-    quitbutt = new ButtonQuit(width / 2 - 100, height / 2 + 10, 200, 50, this, quitButtImage);
+    startbutt = new ButtonStart(width / 2 - 100, height / 2 - 70, 200, 68, this, startButtImage);
+    quitbutt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage);
     
+  }
+  
+  public int getCurrentLevel() { 
+    return currentLevel;
+  }
+
+  public void setCurrentLevel(int number) { 
+    currentLevel = number;
   }
   
   public void nextLevel() { 
@@ -128,13 +145,52 @@ class Game {
   
   void update(float dt) {
     if (gameOver == false && !levelComplete && !won) {
-      for (int i = 0; i < allObjects.size(); i += 1) {
-        allObjects.get(i).update(dt);
+      
+      if (!paused) { 
+        for (int i = 0; i < allObjects.size(); i += 1) {
+          allObjects.get(i).update(dt);
+        }
+        if (camera != null) {
+          camera.update(dt);
+        }
       }
-      if (camera != null) {
-        camera.update(dt);
+      
+      if (keyPressed && currentLevel > 0) {
+        if (key == ' ' && onespace == false) { 
+          System.out.println("goodbye world");
+          paused = !paused;
+          onespace = true;
+          
+          if (paused == false) {
+            allObjects.remove(backgroundbutt);
+            allObjects.remove(restartbutt);
+            allObjects.remove(pauseQuitButt);
+            
+            allHitboxes.remove(backgroundbutt.getHitbox()[0]);
+            allHitboxes.remove(backgroundbutt.getHitbox()[1]);
+            allHitboxes.remove(restartbutt.getHitbox()[0]);
+            allHitboxes.remove(restartbutt.getHitbox()[1]);
+            allHitboxes.remove(pauseQuitButt.getHitbox()[0]);
+            allHitboxes.remove(pauseQuitButt.getHitbox()[1]);
+          
+          }
+        }
       }
+      if (!keyPressed && onespace == true) { 
+        onespace = false;
+      }
+      if (paused == true) { 
+        pauseMenu();
+      }
+      
     }
+  }
+  
+  public void pauseMenu() { 
+    backgroundbutt = new ButtNothing(this, width / 2 - 100, height / 2 - 70, 280, 300, new int[] {48, 213, 200, 110});
+    restartbutt = new ButtonStart(width / 2 - 100, height / 2 - 70, 200, 68, this, restartButtImage);
+    pauseQuitButt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage);
+    //"space to resume?"
   }
   
   public void addObject(GameObject object) {
