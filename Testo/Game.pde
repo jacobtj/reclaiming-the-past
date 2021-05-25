@@ -111,7 +111,7 @@ class Game {
   public void startMenu() { 
     background = new Background(this, menuImage);
     startbutt = new ButtonStart(width / 2 - 100, height / 2 - 70, 200, 68, this, startButtImage);
-    quitbutt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage);
+    quitbutt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage, true);
     
   }
   
@@ -127,6 +127,8 @@ class Game {
     currentLevel += 1;
     allHitboxes.clear();
     allObjects.clear();
+    paused = false;
+    onespace = false;
     
     if (currentLevel == 0) {
       startMenu();
@@ -152,6 +154,12 @@ class Game {
         }
         if (camera != null) {
           camera.update(dt);
+        }
+      } else {
+        for (int i = 0; i < allObjects.size(); i += 1) {
+          if (allObjects.get(i) instanceof Button) {
+            allObjects.get(i).update(dt);
+          }
         }
       }
       
@@ -189,8 +197,8 @@ class Game {
   
   public void pauseMenu() { 
     backgroundbutt = new ButtNothing(this, width / 2 - 140, height / 2 - 85, 280, 150, new int[] {48, 213, 200, 165});
-    restartbutt = new ButtonStart(width / 2 - 100, height / 2 - 70, 200, 68, this, restartButtImage);
-    pauseQuitButt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage);
+    restartbutt = new ButtonRestart(width / 2 - 100, height / 2 - 70, 200, 68, this, restartButtImage);
+    pauseQuitButt = new ButtonQuit(width / 2 - 100, height / 2 + 5, 200, 68, this, quitButtImage, false);
     //"space to resume?"
   }
   
